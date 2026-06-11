@@ -1050,97 +1050,110 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 <script id="apps-script-code" type="text/plain">
 // ── Google Apps Script Web App for PL Garments ──
 // Deploy as: Execute as ME, Who has access: Anyone
+// ⚠️ All operations use doGet only — browsers block POST with
+//    application/json to GAS (CORS), so everything goes via GET params.
 
 const PRODUCTS_SHEET = "PLGarments_Products";
 const REVIEWS_SHEET  = "Reviews";
 
 function doGet(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
-  const action = e.parameter.action || "getProducts";
+  try {
+    const action = (e && e.parameter && e.parameter.action) ? e.parameter.action : "getProducts";
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let result;
 
-  if (action === "getProducts") {
-    const s = sheet.getSheetByName(PRODUCTS_SHEET);
-    const rows = s.getDataRange().getValues();
-    const headers = rows[0];
-    const data = rows.slice(1).map(r => {
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = r[i]);
-      return obj;
-    });
-    return ContentService
-      .createTextOutput(JSON.stringify({ status:"ok", data }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
+    if (action === "getProducts") {
+      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
+      const rows = s.getDataRange().getValues();
+      if (rows.length < 2) return jsonOut({ status: "ok", data: [] });
+      const headers = rows[0];
+      const data = rows.slice(1).map(r => {
+        const obj = {}; headers.forEach((h, i) => obj[h] = r[i]); return obj;
+      });
+      result = { status: "ok", data };
+    }
 
-  if (action === "getReviews") {
-    const pid = e.parameter.productId;
-    const s = sheet.getSheetByName(REVIEWS_SHEET);
-    const rows = s.getDataRange().getValues();
-    const headers = rows[0];
-    const data = rows.slice(1)
-      .map(r => { const o={}; headers.forEach((h,i)=>o[h]=r[i]); return o; })
-      .filter(r => !pid || String(r.productId) === String(pid));
-    return ContentService
-      .createTextOutput(JSON.stringify({ status:"ok", data }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
+    else if (action === "addProduct") {
+      const p = JSON.parse(e.parameter.product || "{}");
+      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
+      const headers = s.getRange(1, 1, 1, s.getLastColumn()).getValues()[0];
+      s.appendRow(headers.map(h => p[h] !== undefined ? p[h] : ""));
+      result = { status: "ok", msg: "Product added" };
+    }
 
-  return ContentService.createTextOutput(JSON.stringify({status:"error",msg:"Unknown action"}))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  const payload = JSON.parse(e.postData.contents);
-  const sheet = SpreadsheetApp.getActiveSpreadsheet();
-  const action = payload.action;
-
-  if (action === "addProduct" || action === "updateProduct") {
-    const s = sheet.getSheetByName(PRODUCTS_SHEET);
-    const headers = s.getRange(1,1,1,s.getLastColumn()).getValues()[0];
-    const p = payload.product;
-    if (action === "addProduct") {
-      const row = headers.map(h => p[h] !== undefined ? p[h] : "");
-      s.appendRow(row);
-    } else {
+    else if (action === "updateProduct") {
+      const p = JSON.parse(e.parameter.product || "{}");
+      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
       const data = s.getDataRange().getValues();
-      for (let i=1; i<data.length; i++) {
-        const idCol = headers.indexOf("id");
+      const headers = data[0];
+      const idCol = headers.indexOf("id");
+      let updated = false;
+      for (let i = 1; i < data.length; i++) {
         if (String(data[i][idCol]) === String(p.id)) {
-          headers.forEach((h,ci) => { if(p[h]!==undefined) s.getRange(i+1,ci+1).setValue(p[h]); });
-          break;
+          headers.forEach((h, ci) => { if (p[h] !== undefined) s.getRange(i+1, ci+1).setValue(p[h]); });
+          updated = true; break;
         }
       }
+      result = updated ? { status: "ok" } : { status: "error", msg: "Product not found" };
     }
-    return ContentService.createTextOutput(JSON.stringify({status:"ok"}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
 
-  if (action === "deleteProduct") {
-    const s = sheet.getSheetByName(PRODUCTS_SHEET);
-    const data = s.getDataRange().getValues();
-    const headers = data[0];
-    const idCol = headers.indexOf("id");
-    for (let i=data.length-1; i>=1; i--) {
-      if (String(data[i][idCol]) === String(payload.id)) {
-        s.deleteRow(i+1); break;
+    else if (action === "deleteProduct") {
+      const id = e.parameter.id;
+      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
+      const data = s.getDataRange().getValues();
+      const idCol = data[0].indexOf("id");
+      for (let i = data.length - 1; i >= 1; i--) {
+        if (String(data[i][idCol]) === String(id)) { s.deleteRow(i+1); break; }
       }
+      result = { status: "ok" };
     }
-    return ContentService.createTextOutput(JSON.stringify({status:"ok"}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
 
-  if (action === "addReview") {
-    const s = sheet.getSheetByName(REVIEWS_SHEET);
-    const headers = s.getRange(1,1,1,s.getLastColumn()).getValues()[0];
-    const r = payload.review;
-    const row = headers.map(h => r[h] !== undefined ? r[h] : "");
-    s.appendRow(row);
-    return ContentService.createTextOutput(JSON.stringify({status:"ok"}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
+    else if (action === "addReview") {
+      const r = JSON.parse(e.parameter.review || "{}");
+      const s = getOrCreateSheet(ss, REVIEWS_SHEET, reviewHeaders());
+      const headers = s.getRange(1, 1, 1, s.getLastColumn()).getValues()[0];
+      s.appendRow(headers.map(h => r[h] !== undefined ? r[h] : ""));
+      result = { status: "ok", msg: "Review added" };
+    }
 
-  return ContentService.createTextOutput(JSON.stringify({status:"error",msg:"Unknown action"}))
-    .setMimeType(ContentService.MimeType.JSON);
+    else if (action === "getReviews") {
+      const pid = e.parameter.productId;
+      const s = getOrCreateSheet(ss, REVIEWS_SHEET, reviewHeaders());
+      const rows = s.getDataRange().getValues();
+      if (rows.length < 2) return jsonOut({ status: "ok", data: [] });
+      const headers = rows[0];
+      const data = rows.slice(1)
+        .map(r => { const o = {}; headers.forEach((h, i) => o[h] = r[i]); return o; })
+        .filter(r => !pid || String(r.productId) === String(pid));
+      result = { status: "ok", data };
+    }
+
+    else {
+      result = { status: "error", msg: "Unknown action: " + action };
+    }
+
+    return jsonOut(result);
+  } catch (err) {
+    return jsonOut({ status: "error", msg: err.message });
+  }
+}
+
+function jsonOut(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function getOrCreateSheet(ss, name, headers) {
+  let sheet = ss.getSheetByName(name);
+  if (!sheet) { sheet = ss.insertSheet(name); sheet.appendRow(headers); }
+  return sheet;
+}
+
+function productHeaders() {
+  return ["id","name","type","use","material","durability","sizes","price","tag","desc","imageUrl","createdAt"];
+}
+
+function reviewHeaders() {
+  return ["id","productId","productName","reviewerName","orderId","rating","reviewText","date"];
 }
 </script>
 
@@ -1403,8 +1416,9 @@ function deleteProduct(id) {
   if (!confirm('Delete this product?')) return;
   const sheetUrl = localStorage.getItem(KEY_SHEET_URL);
   if (sheetUrl) {
-    fetch(sheetUrl, { method:'POST', body: JSON.stringify({ action:'deleteProduct', id }), headers:{'Content-Type':'application/json'} })
-      .catch(()=>{});
+    // ✅ Use GET with URL params — no POST needed
+    const params = new URLSearchParams({ action: 'deleteProduct', id: id });
+    fetch(sheetUrl + '?' + params.toString(), { redirect: 'follow' }).catch(()=>{});
   }
   products = products.filter(p => p.id !== id);
   saveProductsLocal();
@@ -1495,11 +1509,14 @@ function syncProductToSheets(product, action) {
   if (!url) { setSyncStatus('ok', 'Saved locally. No Google Sheets URL set yet.'); return; }
 
   setSyncStatus('loading', 'Syncing to Google Sheets…');
-  fetch(url, {
-    method: 'POST',
-    body: JSON.stringify({ action, product }),
-    headers: { 'Content-Type': 'application/json' }
-  })
+
+  // ✅ Use GET with URL params — GAS does not support POST with application/json from browsers (CORS)
+  const params = new URLSearchParams({
+    action: action,
+    product: JSON.stringify(product)
+  });
+
+  fetch(url + '?' + params.toString(), { redirect: 'follow' })
   .then(r => r.json())
   .then(d => {
     if (d.status === 'ok') setSyncStatus('ok', 'Synced to Google Sheets ✓');
@@ -1615,31 +1632,28 @@ function submitReview() {
   reviews[currentReviewProductId].push(review);
   saveReviewsLocal();
 
-  // Sync to sheets
-  const revUrl = localStorage.getItem(KEY_REV_URL) || localStorage.getItem(KEY_SHEET_URL);
-  if (revUrl) {
-    const ss = document.getElementById('review-sync-status');
-    const sd = document.getElementById('review-sync-dot');
-    const sm = document.getElementById('review-sync-msg');
-    ss.style.display = 'flex';
-    sd.className = 'sync-dot loading';
-    sm.textContent = 'Saving review to Google Sheets…';
-    fetch(revUrl, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'addReview', review }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(r => r.json())
-    .then(d => {
-      sd.className = d.status==='ok' ? 'sync-dot' : 'sync-dot error';
-      sm.textContent = d.status==='ok' ? 'Review saved to Google Sheets ✓' : 'Saved locally only.';
-      setTimeout(closeReview, 1200);
-    })
-    .catch(() => {
-      sd.className = 'sync-dot error';
-      sm.textContent = 'Saved locally only (Sheets unreachable).';
-      setTimeout(closeReview, 1200);
-    });
+    const revUrl = localStorage.getItem(KEY_REV_URL) || localStorage.getItem(KEY_SHEET_URL);
+    if (revUrl) {
+      const ss = document.getElementById('review-sync-status');
+      const sd = document.getElementById('review-sync-dot');
+      const sm = document.getElementById('review-sync-msg');
+      ss.style.display = 'flex';
+      sd.className = 'sync-dot loading';
+      sm.textContent = 'Saving review to Google Sheets…';
+      // ✅ Use GET with URL params — no POST needed
+      const params = new URLSearchParams({ action: 'addReview', review: JSON.stringify(review) });
+      fetch(revUrl + '?' + params.toString(), { redirect: 'follow' })
+      .then(r => r.json())
+      .then(d => {
+        sd.className = d.status==='ok' ? 'sync-dot' : 'sync-dot error';
+        sm.textContent = d.status==='ok' ? 'Review saved to Google Sheets ✓' : 'Saved locally only.';
+        setTimeout(closeReview, 1200);
+      })
+      .catch(() => {
+        sd.className = 'sync-dot error';
+        sm.textContent = 'Saved locally only (Sheets unreachable).';
+        setTimeout(closeReview, 1200);
+      });
   } else {
     closeReview();
     toast('Review submitted! (No Sheets URL — saved locally)');
