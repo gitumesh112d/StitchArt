@@ -1,12 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>StitchArt — Master Tailor</title>
+<title>PL Garments — Stitch Art</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
+/* ── ROOT TOKENS ── */
 :root {
   --bg:        #0d0f1a;
   --surface:   #131629;
@@ -42,7 +42,6 @@ body {
   font-size: 15px;
   min-height: 100vh;
   overflow-x: hidden;
-  /* Leave room for bottom nav on mobile */
   padding-bottom: var(--bottom-nav-h);
 }
 body::before {
@@ -81,9 +80,7 @@ body::after {
   animation: fadeUp 0.4s cubic-bezier(0.34,1.56,0.64,1);
 }
 @keyframes fadeUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-.login-logo {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-}
+.login-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
 .login-mark {
   width: 44px; height: 44px; flex-shrink: 0;
   background: linear-gradient(135deg, var(--violet), #5b4dcc);
@@ -98,7 +95,6 @@ body::after {
 .login-field label { display: block; font-size: 10px; color: var(--text3); letter-spacing: 0.15em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
 .login-field input {
   width: 100%; background: var(--surface3); border: 1px solid var(--border2); color: var(--text);
-  /* Minimum 16px prevents iOS zoom on focus */
   padding: 14px 16px; border-radius: var(--radius-sm); font-family: 'Syne', sans-serif; font-size: 16px;
   outline: none; transition: border-color 0.2s; -webkit-appearance: none;
 }
@@ -139,8 +135,6 @@ header::after {
 }
 .brand-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; background: linear-gradient(135deg, var(--gold2), var(--violet2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
 .brand-sub { font-size: 9px; color: var(--text3); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
-
-/* Desktop nav — hidden on mobile */
 .header-nav { display: flex; gap: 6px; align-items: center; }
 
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: var(--radius-sm); font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; border: none; transition: all 0.22s; white-space: nowrap; text-transform: uppercase; -webkit-tap-highlight-color: transparent; min-height: 44px; }
@@ -150,6 +144,8 @@ header::after {
 .btn-gold:active { transform: scale(0.97); }
 .btn-ghost { background: var(--surface2); color: var(--text2); border: 1px solid var(--border2); }
 .btn-ghost:active { background: var(--surface3); }
+.btn-danger { background: var(--coral-dim); color: var(--coral); border: 1px solid rgba(255,107,107,0.3); }
+.btn-mint { background: var(--mint-dim); color: var(--mint); border: 1px solid rgba(67,232,176,0.3); }
 
 /* ── MAIN LAYOUT ── */
 main { position: relative; z-index: 1; }
@@ -177,28 +173,17 @@ main { position: relative; z-index: 1; }
 .hero-title .ht2 { display: block; background: linear-gradient(135deg, var(--gold2) 0%, var(--coral) 20%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; }
 .hero-desc { font-size: 15px; color: var(--text2); line-height: 1.75; max-width: 600px; margin: 0 auto 32px; }
 .hero-ctas {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  max-width: 380px;
-  margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  max-width: 380px; margin: 0 auto;
 }
-.hero-ctas .btn:last-child {
-  grid-column: 1 / -1;
-}
+.hero-ctas .btn:last-child { grid-column: 1 / -1; }
 .hero-ctas .btn { justify-content: center; font-size: 13px; padding: 14px 12px; }
 .hero-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 40px;
-  border: 1px solid var(--border2); border-radius: var(--radius);
+  display: grid; grid-template-columns: 1fr 1fr;
+  margin-top: 40px; border: 1px solid var(--border2); border-radius: var(--radius);
   background: var(--surface); overflow: hidden;
 }
-.stat {
-  padding: 20px 16px; text-align: center;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
+.stat { padding: 20px 16px; text-align: center; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .stat:nth-child(2n) { border-right: none; }
 .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
 .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; background: linear-gradient(135deg, var(--gold2), var(--violet2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
@@ -228,22 +213,30 @@ main { position: relative; z-index: 1; }
 .about-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
 .about-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
 
-/* ── PRODUCTS ── */
+/* ── PRODUCTS GRID ── */
 .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .product-card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   overflow: hidden; cursor: default; transition: border-color 0.25s, box-shadow 0.25s;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent; position: relative;
 }
 .product-card:active { border-color: var(--border2); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 .product-thumb {
-  height: 100px; display: flex; align-items: center; justify-content: center;
-  font-size: 42px; position: relative; overflow: hidden;
+  height: 140px; display: flex; align-items: center; justify-content: center;
+  font-size: 42px; position: relative; overflow: hidden; background: var(--surface2);
 }
-.product-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3)); }
+.product-thumb img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.product-thumb .thumb-placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 42px;
+}
+.product-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.3)); pointer-events: none; }
 .product-body { padding: 12px 14px; }
 .product-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-.product-desc { font-size: 11px; color: var(--text2); line-height: 1.5; margin-bottom: 10px; display: none; }
+.product-desc { font-size: 11px; color: var(--text2); line-height: 1.5; margin-bottom: 8px; }
+.product-meta { font-size: 10px; color: var(--text3); font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; line-height: 1.6; }
 .product-price {
   display: inline-flex; align-items: center; gap: 4px;
   background: var(--gold-dim); border: 1px solid rgba(245,200,66,0.2);
@@ -256,8 +249,101 @@ main { position: relative; z-index: 1; }
   color: var(--violet2); padding: 3px 8px; border-radius: 20px;
   font-family: 'JetBrains Mono', monospace; font-size: 10px; margin-left: 4px;
 }
+/* Admin action buttons on product card */
+.product-admin-actions {
+  display: none; gap: 6px; padding: 10px 14px; border-top: 1px solid var(--border);
+}
+body.is-admin .product-admin-actions { display: flex; }
+.product-admin-actions button {
+  flex: 1; padding: 7px 4px; border-radius: 8px; font-size: 10px; font-family: 'JetBrains Mono', monospace;
+  cursor: pointer; letter-spacing: 0.06em; border: none; transition: all 0.2s; min-height: 34px;
+}
+.btn-edit-prod { background: var(--violet-dim); color: var(--violet2); border: 1px solid rgba(139,120,255,0.3) !important; }
+.btn-del-prod { background: var(--coral-dim); color: var(--coral); border: 1px solid rgba(255,107,107,0.3) !important; }
 
-/* ── SERVICES (Admin Panel) ── */
+/* Review button on card */
+.btn-review-card {
+  width: 100%; margin: 0 14px 12px; width: calc(100% - 28px);
+  padding: 8px; border-radius: 8px; background: var(--mint-dim); color: var(--mint);
+  border: 1px solid rgba(67,232,176,0.25); font-size: 10px; font-family: 'JetBrains Mono', monospace;
+  cursor: pointer; letter-spacing: 0.06em; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+}
+.btn-review-card:active { background: rgba(67,232,176,0.22); }
+
+/* ── ADMIN PANEL (Product Management) ── */
+#admin-panel {
+  display: none; background: var(--surface2);
+  border: 1px solid var(--border2); border-radius: var(--radius);
+  padding: 24px 20px; margin-bottom: 28px;
+  animation: fadeUp 0.35s ease;
+}
+body.is-admin #admin-panel { display: block; }
+.admin-panel-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.admin-panel-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; flex: 1; }
+.admin-panel-badge {
+  background: var(--mint-dim); border: 1px solid rgba(67,232,176,0.25); color: var(--mint);
+  padding: 4px 10px; border-radius: 20px; font-size: 9px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em;
+}
+
+/* Admin form fields */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-grid .full { grid-column: 1 / -1; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field label {
+  font-size: 10px; color: var(--text3); letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+.form-field input, .form-field select, .form-field textarea {
+  background: var(--surface3); border: 1px solid var(--border2); color: var(--text);
+  padding: 12px 14px; border-radius: var(--radius-sm); font-family: 'Syne', sans-serif; font-size: 15px;
+  outline: none; transition: border-color 0.2s; -webkit-appearance: none; width: 100%;
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--violet); }
+.form-field textarea { min-height: 70px; resize: vertical; }
+.form-field select option { background: var(--surface3); }
+
+/* Image upload area */
+.img-upload-area {
+  background: var(--surface3); border: 2px dashed var(--border2); border-radius: var(--radius-sm);
+  padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.2s;
+  position: relative; min-height: 90px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px;
+}
+.img-upload-area:hover, .img-upload-area.dragover { border-color: var(--violet); background: var(--violet-dim); }
+.img-upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.img-upload-icon { color: var(--violet2); }
+.img-upload-text { font-size: 12px; color: var(--text2); }
+.img-upload-sub { font-size: 10px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
+.img-preview-wrap { position: relative; display: inline-flex; }
+.img-preview { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border2); }
+.img-remove-btn {
+  position: absolute; top: -6px; right: -6px; width: 20px; height: 20px;
+  background: var(--coral); color: #fff; border-radius: 50%; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+
+/* URL field for Google Drive image link */
+.img-url-field { margin-top: 8px; }
+.img-url-field input { font-size: 12px; }
+
+/* Form actions */
+.form-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.form-actions button { flex: 1; min-width: 120px; }
+
+/* Sync status */
+.sync-status {
+  font-size: 10px; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+  padding: 8px 12px; background: var(--surface3); border-radius: 8px; border: 1px solid var(--border);
+  margin-top: 12px; display: flex; align-items: center; gap: 8px;
+}
+.sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); flex-shrink: 0; }
+.sync-dot.error { background: var(--coral); }
+.sync-dot.loading { background: var(--gold); animation: pdot 1s ease-in-out infinite; }
+
+/* ── SERVICES ── */
 .services-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
 .service-card {
   background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius);
@@ -283,24 +369,11 @@ main { position: relative; z-index: 1; }
 }
 .upi-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
 .upi-sub { font-size: 11px; color: var(--text2); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; margin-bottom: 24px; }
-.upi-qr {
-  width: 160px; height: 160px; background: #fff; border-radius: 12px; margin: 0 auto 18px;
-  display: flex; align-items: center; justify-content: center; padding: 10px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-}
-.upi-qr svg { width: 100%; height: 100%; }
 .upi-id {
   background: var(--surface3); border: 1px solid var(--border2); border-radius: var(--radius-sm);
   padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 600;
   color: var(--gold2); letter-spacing: 0.05em; margin-bottom: 12px;
 }
-.upi-copy {
-  width: 100%; padding: 14px; border-radius: var(--radius-sm); background: var(--surface3);
-  border: 1px solid var(--border2); color: var(--text2); font-family: 'Syne', sans-serif; font-size: 13px;
-  cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
-  gap: 8px; min-height: 50px; -webkit-tap-highlight-color: transparent;
-}
-.upi-copy:active { background: var(--violet-dim); color: var(--violet2); }
 .upi-apps { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
 .upi-app {
   background: var(--surface3); border: 1px solid var(--border); border-radius: 10px;
@@ -348,15 +421,14 @@ body.is-admin .admin-badge { display: flex; }
 .logout-btn { display: none; background: none; border: 1px solid var(--border2); color: var(--text3); padding: 5px 10px; border-radius: 20px; font-size: 9px; font-family: 'JetBrains Mono', monospace; cursor: pointer; letter-spacing: 0.06em; transition: all 0.2s; min-height: 34px; }
 body.is-admin .logout-btn { display: inline-flex; align-items: center; gap: 5px; }
 
-/* ── BOTTOM NAVIGATION (Mobile) ── */
+/* ── BOTTOM NAVIGATION ── */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
   height: var(--bottom-nav-h);
   background: rgba(13,15,26,0.96); backdrop-filter: blur(24px);
   border-top: 1px solid var(--border2);
   display: flex; align-items: center;
-  padding: 0 4px;
-  padding-bottom: env(safe-area-inset-bottom);
+  padding: 0 4px; padding-bottom: env(safe-area-inset-bottom);
 }
 .bottom-nav::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
@@ -368,8 +440,7 @@ body.is-admin .logout-btn { display: inline-flex; align-items: center; gap: 5px;
   gap: 4px; padding: 8px 4px; cursor: pointer; border: none; background: none;
   color: var(--text3); font-family: 'JetBrains Mono', monospace; font-size: 9px;
   letter-spacing: 0.06em; text-transform: uppercase; -webkit-tap-highlight-color: transparent;
-  border-radius: 10px; transition: color 0.2s, background 0.2s;
-  text-decoration: none;
+  border-radius: 10px; transition: color 0.2s, background 0.2s; text-decoration: none;
 }
 .nav-tab:active, .nav-tab.active { color: var(--violet2); background: var(--violet-dim); }
 .nav-tab svg { width: 20px; height: 20px; flex-shrink: 0; }
@@ -377,7 +448,53 @@ body.is-admin .logout-btn { display: inline-flex; align-items: center; gap: 5px;
 .nav-tab-admin.active { color: var(--mint); background: var(--mint-dim); }
 body.is-admin .nav-tab-admin { color: var(--mint); }
 
-/* ── DESKTOP OVERRIDES (≥ 700px) ── */
+/* ── REVIEW OVERLAY ── */
+#review-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(13,15,26,0.96); backdrop-filter: blur(20px);
+  display: none; align-items: flex-end; justify-content: center;
+  padding: 20px;
+}
+#review-overlay.active { display: flex; }
+.review-sheet {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: var(--radius); padding: 24px 20px;
+  width: 100%; max-width: 500px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  animation: fadeUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  max-height: 90vh; overflow-y: auto;
+}
+.review-sheet-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.review-sheet-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; flex: 1; }
+.review-close { background: none; border: none; color: var(--text3); cursor: pointer; padding: 4px; }
+.star-row { display: flex; gap: 8px; margin: 12px 0; }
+.star-btn {
+  font-size: 26px; background: none; border: none; cursor: pointer;
+  filter: grayscale(1) brightness(0.5); transition: all 0.15s; padding: 0;
+}
+.star-btn.active { filter: none; }
+
+/* Reviews list on product card */
+.product-reviews { padding: 0 14px 12px; }
+.review-item {
+  background: var(--surface3); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px;
+  border: 1px solid var(--border);
+}
+.review-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.review-name { font-size: 12px; font-weight: 600; }
+.review-stars { font-size: 12px; }
+.review-date { font-size: 10px; color: var(--text3); font-family: 'JetBrains Mono', monospace; margin-left: auto; }
+.review-text { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.no-reviews { font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace; padding: 8px 0; }
+
+/* Empty products state */
+.products-empty {
+  grid-column: 1 / -1; text-align: center; padding: 40px 20px;
+  color: var(--text3); font-family: 'JetBrains Mono', monospace; font-size: 12px;
+}
+.products-empty span { font-size: 32px; display: block; margin-bottom: 12px; }
+
+/* ── DESKTOP OVERRIDES ── */
 @media (min-width: 700px) {
   body { padding-bottom: 0; }
   .bottom-nav { display: none; }
@@ -388,23 +505,16 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
   .products-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
   .product-body .product-desc { display: block; }
   .services-grid { grid-template-columns: 1fr 1fr; }
-  .hero-ctas {
-    display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;
-    max-width: none; gap: 12px;
-  }
+  .hero-ctas { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: none; gap: 12px; }
   .hero-ctas .btn:last-child { grid-column: auto; }
-  .hero-stats {
-    display: flex; flex-direction: row;
-    border-radius: var(--radius); overflow: hidden;
-  }
+  .hero-stats { display: flex; flex-direction: row; border-radius: var(--radius); overflow: hidden; }
   .stat { flex: 1; border-right: 1px solid var(--border); border-bottom: none; }
   .stat:last-child { border-right: none; }
   .hero { padding: 80px 24px 60px; }
   .section { padding: 60px 24px; }
   .btn { min-height: auto; }
+  #review-overlay { align-items: center; }
 }
-
-/* ── TABLET (700–900px) ── */
 @media (min-width: 700px) and (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr 1fr; }
   .products-grid { grid-template-columns: repeat(3, 1fr); }
@@ -414,7 +524,9 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 </head>
 <body>
 
-<!-- ADMIN LOGIN OVERLAY -->
+<!-- ════════════════════════════════════════════════════
+     ADMIN LOGIN OVERLAY
+════════════════════════════════════════════════════ -->
 <div id="admin-overlay">
   <div class="login-box">
     <div class="login-logo">
@@ -442,7 +554,56 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
   </div>
 </div>
 
-<!-- HEADER -->
+<!-- ════════════════════════════════════════════════════
+     REVIEW OVERLAY
+════════════════════════════════════════════════════ -->
+<div id="review-overlay">
+  <div class="review-sheet">
+    <div class="review-sheet-header">
+      <div>
+        <div class="review-sheet-title">Leave a Review</div>
+        <div id="review-product-name" style="font-size:12px;color:var(--text2);font-family:'JetBrains Mono',monospace;margin-top:3px;"></div>
+      </div>
+      <button class="review-close" onclick="closeReview()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="login-field">
+      <label>Your Name</label>
+      <input type="text" id="review-name" placeholder="e.g. Ramesh Kumar" style="font-size:15px;"/>
+    </div>
+    <div class="login-field">
+      <label>Order ID / Phone (optional)</label>
+      <input type="text" id="review-orderid" placeholder="For verification" style="font-size:15px;"/>
+    </div>
+    <div class="login-field">
+      <label>Rating</label>
+      <div class="star-row" id="star-row">
+        <button class="star-btn" data-v="1" onclick="setRating(1)">★</button>
+        <button class="star-btn" data-v="2" onclick="setRating(2)">★</button>
+        <button class="star-btn" data-v="3" onclick="setRating(3)">★</button>
+        <button class="star-btn" data-v="4" onclick="setRating(4)">★</button>
+        <button class="star-btn" data-v="5" onclick="setRating(5)">★</button>
+      </div>
+    </div>
+    <div class="login-field">
+      <label>Your Review</label>
+      <textarea id="review-text" placeholder="Tell us about the quality, fit, and your experience..." style="font-size:15px;min-height:80px;"></textarea>
+    </div>
+    <button class="btn-login" onclick="submitReview()" style="margin-top:4px;">Submit Review</button>
+    <button class="btn-login-cancel" onclick="closeReview()">Cancel</button>
+
+    <div class="sync-status" id="review-sync-status" style="margin-top:12px;display:none;">
+      <div class="sync-dot" id="review-sync-dot"></div>
+      <span id="review-sync-msg">Saving review…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════ -->
 <header>
   <a class="brand" href="#home">
     <div class="brand-mark">
@@ -485,7 +646,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
     <span class="ht2">In Rahatgarh</span>
   </h1>
   <p class="hero-desc">
-    <strong>PL Garments</strong> — Personalized stitch art. Speciality in shirts, trousers, Pants and Blazers. Modern style work for your better look.
+    <strong>PL Garments</strong> — Personalized stitch art. Speciality in shirts, trousers, pants and blazers. Modern style work for your better look.
   </p>
   <div class="hero-ctas">
     <button class="btn btn-gold" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
@@ -494,14 +655,8 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
     </button>
     <button class="btn btn-primary" onclick="document.getElementById('pay').scrollIntoView({behavior:'smooth'})">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Accepts Cash/UPI  
+      Accepts Cash/UPI
     </button>
-
-    <!-- <a href="tel:+91 75828 75380" class="btn btn-ghost">  -->
-    <!-- <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16"/></svg> -->
-    <!-- Contact -->
-    <!-- </a> --> 
-
   </div>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">8+</div><div class="stat-lbl">Years Exp.</div></div>
@@ -518,7 +673,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
     <div class="section-tag">// About the Shop</div>
     <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
   </div>
-  <h2 class="section-title">My service</h2>
+  <h2 class="section-title">My Service</h2>
   <p style="color:var(--text2);font-size:14px;line-height:1.8;max-width:780px;margin-bottom:28px;">
     PL Garments has been Rahatgarh's trusted stitch work for over 8 years. Lower charges on stitching work compared to Market.
   </p>
@@ -527,7 +682,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
       <div class="about-icon v">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 1 21 12a10 10 0 0 1-1.93 5.07"/><path d="M4.93 4.93A10 10 0 0 0 3 12a10 10 0 0 0 1.93 5.07"/></svg>
       </div>
-      <div><h3>Comfortable fitting</h3><p>Comfortable fit — no complaints form customers.</p></div>
+      <div><h3>Comfortable Fitting</h3><p>Comfortable fit — no complaints from customers.</p></div>
     </div>
     <div class="about-card">
       <div class="about-icon g">
@@ -539,7 +694,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
       <div class="about-icon m">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <div><h3>Timely Delivery</h3><p>Work completion in 5–7 days. Fast service is also done for urgent customers</p></div>
+      <div><h3>Timely Delivery</h3><p>Work completion in 5–7 days. Fast service also done for urgent customers.</p></div>
     </div>
     <div class="about-card">
       <div class="about-icon c">
@@ -558,77 +713,183 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
     <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
   </div>
   <h2 class="section-title">What I Sell</h2>
-  <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Each item is prepared from scratch, tailored to your measurements and style preference.</p>
-  <div class="products-grid">
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#1a1e35,#2a2060);">👔</div>
-      <div class="product-body">
-        <div class="product-name">Formal Shirt</div>
-        <div class="product-desc">Crisp collar, Oxford or cotton fabric. Perfect for office wear.</div>
-        <span class="product-price">₹ 300</span>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:16px;">Each item is prepared from scratch, tailored to your measurements and style preference.</p>
+
+  <!-- ══════════════════════════════════════════
+       ADMIN PRODUCT PANEL (visible when logged in)
+  ══════════════════════════════════════════ -->
+  <div id="admin-panel">
+    <div class="admin-panel-header">
+      <div class="admin-panel-title" id="admin-panel-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Add New Product
+      </div>
+      <div class="admin-panel-badge">ADMIN MODE</div>
+    </div>
+
+    <!-- Hidden edit ID -->
+    <input type="hidden" id="edit-product-id"/>
+
+    <div class="form-grid">
+      <!-- Name -->
+      <div class="form-field full">
+        <label>Product Name *</label>
+        <input type="text" id="f-name" placeholder="e.g. Premium Formal Shirt"/>
+      </div>
+      <!-- Type of clothes -->
+      <div class="form-field">
+        <label>Type of Clothing *</label>
+        <select id="f-type">
+          <option value="">Select type…</option>
+          <option>Shirt</option>
+          <option>Kurta</option>
+          <option>Trouser / Pant</option>
+          <option>Blazer</option>
+          <option>School Uniform</option>
+          <option>Party Wear</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <!-- Type of use -->
+      <div class="form-field">
+        <label>Type of Use *</label>
+        <select id="f-use">
+          <option value="">Select use…</option>
+          <option>Formal / Office</option>
+          <option>Casual</option>
+          <option>Party / Festive</option>
+          <option>Traditional</option>
+          <option>School / Uniform</option>
+          <option>Sports / Active</option>
+        </select>
+      </div>
+      <!-- Material -->
+      <div class="form-field">
+        <label>Material / Fabric *</label>
+        <select id="f-material">
+          <option value="">Select material…</option>
+          <option>Cotton</option>
+          <option>Linen</option>
+          <option>Polyester</option>
+          <option>Silk / Satin</option>
+          <option>Rayon</option>
+          <option>Blended</option>
+          <option>Denim</option>
+          <option>Woolen</option>
+        </select>
+      </div>
+      <!-- Durability -->
+      <div class="form-field">
+        <label>Durability</label>
+        <select id="f-durability">
+          <option value="">Select…</option>
+          <option>1–2 years</option>
+          <option>2–4 years</option>
+          <option>4–6 years</option>
+          <option>6+ years</option>
+        </select>
+      </div>
+      <!-- Sizes -->
+      <div class="form-field">
+        <label>Available Sizes</label>
+        <input type="text" id="f-sizes" placeholder="e.g. S, M, L, XL, XXL or 38–44"/>
+      </div>
+      <!-- Price -->
+      <div class="form-field">
+        <label>Price (₹) *</label>
+        <input type="text" id="f-price" placeholder="e.g. 300 or 300+"/>
+      </div>
+      <!-- Tag -->
+      <div class="form-field">
+        <label>Badge / Tag</label>
+        <input type="text" id="f-tag" placeholder="e.g. Popular, New, Best Seller"/>
+      </div>
+      <!-- Description -->
+      <div class="form-field full">
+        <label>Short Description</label>
+        <textarea id="f-desc" placeholder="Brief description of the product…"></textarea>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="form-field full">
+        <label>Product Image</label>
+        <!-- Upload from device -->
+        <div class="img-upload-area" id="img-upload-area" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleDrop(event)">
+          <input type="file" id="f-img-file" accept="image/*" onchange="handleFileSelect(event)"/>
+          <div id="img-upload-placeholder">
+            <svg class="img-upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="img-upload-text">Tap to upload or drag & drop</div>
+            <div class="img-upload-sub">JPG, PNG, WEBP — max 2 MB</div>
+          </div>
+          <div id="img-upload-preview" style="display:none;">
+            <div class="img-preview-wrap">
+              <img id="img-preview-el" class="img-preview" src="" alt="preview"/>
+              <button class="img-remove-btn" onclick="removeImage(event)">×</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- OR paste a Google Drive / any public image URL -->
+        <div class="img-url-field">
+          <label style="font-size:10px;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:5px;">Or paste public image URL (Google Drive share link recommended)</label>
+          <input type="url" id="f-img-url" class="img-url-field" placeholder="https://drive.google.com/uc?id=FILE_ID  or  any image URL" style="font-size:13px;" oninput="previewFromUrl(this.value)"/>
+        </div>
       </div>
     </div>
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#1e2a1a,#2a401e);">🎽</div>
-      <div class="product-body">
-        <div class="product-name">Linen Shirt</div>
-        <div class="product-desc">Relaxed fit, breathable linen weave. Weekend essential.</div>
-        <span class="product-price">₹ 300</span>
-      </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="saveProduct()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        <span id="save-btn-text">Save Product</span>
+      </button>
+      <button class="btn btn-ghost" onclick="resetForm()" id="cancel-edit-btn" style="display:none;">Cancel Edit</button>
     </div>
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#261a2a,#3a1e45);">🧥</div>
-      <div class="product-body">
-        <div class="product-name">Kurta & Pyjama</div>
-        <div class="product-desc">Traditional kurta with modern cuts, various lengths.</div>
-        <span class="product-price">₹ 500+</span>
-        <span class="product-tag">Popular</span>
-      </div>
+
+    <div class="sync-status" id="admin-sync-status">
+      <div class="sync-dot" id="admin-sync-dot"></div>
+      <span id="admin-sync-msg">Products loaded from local storage. Connect Google Sheets for cloud sync.</span>
     </div>
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#261e1a,#403020);">👕</div>
-      <div class="product-body">
-        <div class="product-name">Party wear Shirts</div>
-        <div class="product-desc">Glossy fabric, French placket — ideal for celebrations.</div>
-        <span class="product-price">₹ 500+</span>
-        <span class="product-tag">Popular</span>
+
+    <!-- Google Sheets setup info -->
+    <details style="margin-top:14px;">
+      <summary style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;cursor:pointer;letter-spacing:0.06em;">⚙ Google Sheets Setup (tap to expand)</summary>
+      <div style="background:var(--surface3);border-radius:10px;padding:14px;margin-top:10px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);line-height:1.8;">
+        <strong style="color:var(--gold2);">Step 1 — Create the sheet:</strong><br/>
+        Go to sheets.google.com → New sheet → Name it "PLGarments_Products"<br/><br/>
+        <strong style="color:var(--gold2);">Step 2 — Sheet headers (Row 1):</strong><br/>
+        id | name | type | use | material | durability | sizes | price | tag | desc | imageUrl | createdAt<br/><br/>
+        <strong style="color:var(--gold2);">Step 3 — Create Apps Script Web App:</strong><br/>
+        Extensions → Apps Script → paste the script from the SETUP_GUIDE below → Deploy as Web App (Anyone can access) → copy the URL<br/><br/>
+        <strong style="color:var(--gold2);">Step 4 — Paste your Web App URL below:</strong><br/>
+        <input type="url" id="sheets-url" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec"
+          style="width:100%;margin-top:6px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:10px;border-radius:8px;font-size:12px;font-family:'JetBrains Mono',monospace;outline:none;"
+          onchange="saveSheetUrl(this.value)"/>
+        <button onclick="testSheetConnection()" style="margin-top:8px;background:var(--violet-dim);color:var(--violet2);border:1px solid rgba(139,120,255,0.3);padding:8px 14px;border-radius:8px;font-size:11px;font-family:'JetBrains Mono',monospace;cursor:pointer;">Test Connection</button>
+        <div id="sheet-test-result" style="margin-top:8px;display:none;"></div>
+        <br/>
+        <strong style="color:var(--gold2);">Apps Script code (copy this):</strong><br/>
+        <div style="background:var(--bg);padding:10px;border-radius:8px;margin-top:4px;white-space:pre-wrap;color:var(--mint);font-size:10px;overflow-x:auto;" id="script-code-block"></div>
       </div>
-    </div>
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#1a2226,#1e3040);">🩳</div>
-      <div class="product-body">
-        <div class="product-name">Formal Trousers</div>
-        <div class="product-desc">Flat-front, slim-fit. Perfect break at ankle.</div>
-        <span class="product-price">₹ 800+</span>
+    </details>
+
+    <!-- Reviews sheet setup -->
+    <details style="margin-top:10px;">
+      <summary style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;cursor:pointer;letter-spacing:0.06em;">⚙ Google Sheets — Reviews Setup</summary>
+      <div style="background:var(--surface3);border-radius:10px;padding:14px;margin-top:10px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);line-height:1.8;">
+        <strong style="color:var(--gold2);">Add a second sheet tab named "Reviews" with headers:</strong><br/>
+        id | productId | productName | reviewerName | orderId | rating | reviewText | date<br/><br/>
+        The same Apps Script handles both sheets. Reviews are sent to the same Web App URL.<br/><br/>
+        <strong style="color:var(--gold2);">Reviews Web App URL (same as products or separate):</strong><br/>
+        <input type="url" id="reviews-sheet-url" placeholder="Paste same Web App URL here"
+          style="width:100%;margin-top:6px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:10px;border-radius:8px;font-size:12px;font-family:'JetBrains Mono',monospace;outline:none;"
+          onchange="saveReviewSheetUrl(this.value)"/>
       </div>
-    </div>
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#201a26,#302040);">👖</div>
-      <div class="product-body">
-        <div class="product-name">Pants</div>
-        <div class="product-desc">Stretch-cotton, multiple pockets, various colors.</div>
-        <span class="product-price">₹ 850+</span>
-      </div>
-    </div>
-    
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#1a2620,#1e3a2e);">🎗️</div>
-      <div class="product-body">
-        <div class="product-name">School Uniform</div>
-        <div class="product-desc">Durable stitching, exact measurements for kids.</div>
-        <span class="product-price">₹ 400+</span>
-      </div>
-    </div>
-   
-    <div class="product-card">
-      <div class="product-thumb" style="background:linear-gradient(135deg,#201a20,#3a1e38);">✂️</div>
-      <div class="product-body">
-        <div class="product-name">Alterations</div>
-        <div class="product-desc">Resize, hem, re-stitch any garment. Quick turnaround.</div>
-        <span class="product-price">₹ 100+</span>
-        <span class="product-tag">Service</span>
-      </div>
-    </div>
+    </details>
+  </div>
+
+  <!-- PRODUCTS GRID (dynamic) -->
+  <div class="products-grid" id="products-grid">
+    <!-- populated by JS -->
   </div>
 </section>
 
@@ -639,7 +900,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
     <div class="section-tag">// Order Management</div>
     <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
   </div>
-  <h2 class="section-title">Customer Fitting measurements</h2>
+  <h2 class="section-title">Customer Fitting Measurements</h2>
   <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Manage customer orders and measurements. <span id="svc-note" style="color:var(--coral);font-family:'JetBrains Mono',monospace;font-size:12px;">Admin login required to access.</span></p>
   <div class="services-grid">
     <div class="service-card shirt-svc" onclick="openService('shirt')">
@@ -687,9 +948,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
   <div class="upi-card">
     <div class="upi-title">PLGarments-Payments</div>
     <div class="upi-sub">// Scan · Pay · Done</div>
-
     <div class="upi-id" id="upi-id-text">Cash/UPI payments are accepted</div>
-
     <div class="upi-apps">
       <div class="upi-app">📱 GPay</div>
       <div class="upi-app">💜 PhonePe</div>
@@ -718,10 +977,10 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
       </div>
       <div>
         <div class="contact-lbl">Address</div>
-        <div class="contact-val">Sanjay Market, In front of Dr.DC Jain Rahatgarh, District Sagar MP– 470119</div>
+        <div class="contact-val">Sanjay Market, In front of Dr. DC Jain, Rahatgarh, District Sagar MP – 470119</div>
       </div>
     </div>
-    <a href="tel:+919876543210" style="text-decoration:none;" class="contact-item">
+    <a href="tel:+917582875380" style="text-decoration:none;" class="contact-item">
       <div class="contact-icon" style="background:var(--mint-dim);color:var(--mint);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16"/></svg>
       </div>
@@ -745,7 +1004,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
       </div>
       <div>
         <div class="contact-lbl">Email</div>
-        <div class="contact-val">plgarments@gmail.com<br/><span style="font-size:8px;color:var(--text3);"></span></div>
+        <div class="contact-val">plgarments@gmail.com</div>
       </div>
     </div>
   </div>
@@ -755,11 +1014,11 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 
 <!-- FOOTER -->
 <footer>
-  <div>© 2026 PL Garments — Stitch Art,Rahatgarh &nbsp;·&nbsp; Crafted with ❤️ &nbsp;·&nbsp; All rights reserved</div>
+  <div>© 2026 PL Garments — Stitch Art, Rahatgarh &nbsp;·&nbsp; Crafted with ❤️ &nbsp;·&nbsp; All rights reserved</div>
   <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
 </footer>
 
-<!-- BOTTOM NAVIGATION (mobile) -->
+<!-- BOTTOM NAVIGATION -->
 <nav class="bottom-nav">
   <a class="nav-tab" href="#home" onclick="setActive(this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -785,26 +1044,624 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 
 <div id="toast"></div>
 
+<!-- ════════════════════════════════════════════════════
+     APPS SCRIPT (display only — copy to Google)
+════════════════════════════════════════════════════ -->
+<script id="apps-script-code" type="text/plain">
+// ── Google Apps Script Web App for PL Garments ──
+// Deploy as: Execute as ME, Who has access: Anyone
+
+const PRODUCTS_SHEET = "PLGarments_Products";
+const REVIEWS_SHEET  = "Reviews";
+
+function doGet(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet();
+  const action = e.parameter.action || "getProducts";
+
+  if (action === "getProducts") {
+    const s = sheet.getSheetByName(PRODUCTS_SHEET);
+    const rows = s.getDataRange().getValues();
+    const headers = rows[0];
+    const data = rows.slice(1).map(r => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = r[i]);
+      return obj;
+    });
+    return ContentService
+      .createTextOutput(JSON.stringify({ status:"ok", data }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "getReviews") {
+    const pid = e.parameter.productId;
+    const s = sheet.getSheetByName(REVIEWS_SHEET);
+    const rows = s.getDataRange().getValues();
+    const headers = rows[0];
+    const data = rows.slice(1)
+      .map(r => { const o={}; headers.forEach((h,i)=>o[h]=r[i]); return o; })
+      .filter(r => !pid || String(r.productId) === String(pid));
+    return ContentService
+      .createTextOutput(JSON.stringify({ status:"ok", data }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({status:"error",msg:"Unknown action"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  const payload = JSON.parse(e.postData.contents);
+  const sheet = SpreadsheetApp.getActiveSpreadsheet();
+  const action = payload.action;
+
+  if (action === "addProduct" || action === "updateProduct") {
+    const s = sheet.getSheetByName(PRODUCTS_SHEET);
+    const headers = s.getRange(1,1,1,s.getLastColumn()).getValues()[0];
+    const p = payload.product;
+    if (action === "addProduct") {
+      const row = headers.map(h => p[h] !== undefined ? p[h] : "");
+      s.appendRow(row);
+    } else {
+      const data = s.getDataRange().getValues();
+      for (let i=1; i<data.length; i++) {
+        const idCol = headers.indexOf("id");
+        if (String(data[i][idCol]) === String(p.id)) {
+          headers.forEach((h,ci) => { if(p[h]!==undefined) s.getRange(i+1,ci+1).setValue(p[h]); });
+          break;
+        }
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({status:"ok"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "deleteProduct") {
+    const s = sheet.getSheetByName(PRODUCTS_SHEET);
+    const data = s.getDataRange().getValues();
+    const headers = data[0];
+    const idCol = headers.indexOf("id");
+    for (let i=data.length-1; i>=1; i--) {
+      if (String(data[i][idCol]) === String(payload.id)) {
+        s.deleteRow(i+1); break;
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({status:"ok"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  if (action === "addReview") {
+    const s = sheet.getSheetByName(REVIEWS_SHEET);
+    const headers = s.getRange(1,1,1,s.getLastColumn()).getValues()[0];
+    const r = payload.review;
+    const row = headers.map(h => r[h] !== undefined ? r[h] : "");
+    s.appendRow(row);
+    return ContentService.createTextOutput(JSON.stringify({status:"ok"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({status:"error",msg:"Unknown action"}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+</script>
+
+<!-- ════════════════════════════════════════════════════
+     MAIN JAVASCRIPT
+════════════════════════════════════════════════════ -->
 <script>
 // ── CONFIG ──
 const ADMIN_USER = "bharat";
 const ADMIN_PASS = "bharat@1995";
 
 let isAdmin = false;
+let products = [];        // array of product objects
+let reviews  = {};        // { productId: [review, ...] }
+let currentImageData = null;  // base64 data URL for uploaded image
+let currentEditId    = null;  // product id being edited
+let currentReviewProductId = null;
+let currentRating = 0;
 
+// ── STORAGE KEYS ──
+const KEY_PRODUCTS   = "plg_products";
+const KEY_REVIEWS    = "plg_reviews";
+const KEY_SHEET_URL  = "plg_sheet_url";
+const KEY_REV_URL    = "plg_reviews_url";
+
+// ── LOAD ON INIT ──
+window.addEventListener('DOMContentLoaded', () => {
+  // Show apps script code in the details block
+  const codeEl = document.getElementById('script-code-block');
+  if (codeEl) {
+    const raw = document.getElementById('apps-script-code').textContent;
+    codeEl.textContent = raw.trim();
+  }
+
+  // Restore sheet URLs
+  const su = localStorage.getItem(KEY_SHEET_URL);
+  if (su) document.getElementById('sheets-url').value = su;
+  const ru = localStorage.getItem(KEY_REV_URL);
+  if (ru) document.getElementById('reviews-sheet-url').value = ru;
+
+  // Load products
+  loadProducts();
+});
+
+// ═══════════════════════════════
+// PRODUCTS STORAGE
+// ═══════════════════════════════
+function loadProducts() {
+  // Try local first
+  const saved = localStorage.getItem(KEY_PRODUCTS);
+  if (saved) {
+    try { products = JSON.parse(saved); } catch(e) { products = []; }
+  }
+  // If no saved, use defaults
+  if (!products.length) products = getDefaultProducts();
+
+  // Load reviews
+  const rv = localStorage.getItem(KEY_REVIEWS);
+  if (rv) {
+    try { reviews = JSON.parse(rv); } catch(e) { reviews = {}; }
+  }
+
+  renderProducts();
+
+  // Try to sync from Google Sheets if URL saved
+  const sheetUrl = localStorage.getItem(KEY_SHEET_URL);
+  if (sheetUrl) syncFromSheets(sheetUrl);
+}
+
+function saveProductsLocal() {
+  localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products));
+}
+function saveReviewsLocal() {
+  localStorage.setItem(KEY_REVIEWS, JSON.stringify(reviews));
+}
+
+// ═══════════════════════════════
+// DEFAULT PRODUCTS (seed data)
+// ═══════════════════════════════
+function getDefaultProducts() {
+  return [
+    { id:'p1', name:'Formal Shirt', type:'Shirt', use:'Formal / Office', material:'Cotton', durability:'2–4 years', sizes:'S, M, L, XL, XXL', price:'300', tag:'', desc:'Crisp collar, Oxford or cotton fabric. Perfect for office wear.', imageUrl:'', emoji:'👔', bg:'linear-gradient(135deg,#1a1e35,#2a2060)' },
+    { id:'p2', name:'Linen Shirt', type:'Shirt', use:'Casual', material:'Linen', durability:'2–4 years', sizes:'S, M, L, XL', price:'300', tag:'', desc:'Relaxed fit, breathable linen weave. Weekend essential.', imageUrl:'', emoji:'🎽', bg:'linear-gradient(135deg,#1e2a1a,#2a401e)' },
+    { id:'p3', name:'Kurta & Pyjama', type:'Kurta', use:'Traditional', material:'Cotton', durability:'2–4 years', sizes:'S, M, L, XL, XXL', price:'500+', tag:'Popular', desc:'Traditional kurta with modern cuts, various lengths.', imageUrl:'', emoji:'🧥', bg:'linear-gradient(135deg,#261a2a,#3a1e45)' },
+    { id:'p4', name:'Party Wear Shirts', type:'Shirt', use:'Party / Festive', material:'Silk / Satin', durability:'1–2 years', sizes:'S, M, L, XL', price:'500+', tag:'Popular', desc:'Glossy fabric, French placket — ideal for celebrations.', imageUrl:'', emoji:'👕', bg:'linear-gradient(135deg,#261e1a,#403020)' },
+    { id:'p5', name:'Formal Trousers', type:'Trouser / Pant', use:'Formal / Office', material:'Blended', durability:'2–4 years', sizes:'28–40', price:'800+', tag:'', desc:'Flat-front, slim-fit. Perfect break at ankle.', imageUrl:'', emoji:'🩳', bg:'linear-gradient(135deg,#1a2226,#1e3040)' },
+    { id:'p6', name:'Pants', type:'Trouser / Pant', use:'Casual', material:'Cotton', durability:'2–4 years', sizes:'28–40', price:'850+', tag:'', desc:'Stretch-cotton, multiple pockets, various colors.', imageUrl:'', emoji:'👖', bg:'linear-gradient(135deg,#201a26,#302040)' },
+    { id:'p7', name:'School Uniform', type:'School Uniform', use:'School / Uniform', material:'Blended', durability:'1–2 years', sizes:'Custom', price:'400+', tag:'', desc:'Durable stitching, exact measurements for kids.', imageUrl:'', emoji:'🎗️', bg:'linear-gradient(135deg,#1a2620,#1e3a2e)' },
+    { id:'p8', name:'Alterations', type:'Other', use:'Casual', material:'', durability:'', sizes:'Any', price:'100+', tag:'Service', desc:'Resize, hem, re-stitch any garment. Quick turnaround.', imageUrl:'', emoji:'✂️', bg:'linear-gradient(135deg,#201a20,#3a1e38)' },
+  ];
+}
+
+// ═══════════════════════════════
+// RENDER PRODUCTS
+// ═══════════════════════════════
+function renderProducts() {
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
+
+  if (!products.length) {
+    grid.innerHTML = `<div class="products-empty"><span>🧵</span>No products yet. Add one using the Admin Panel above.</div>`;
+    return;
+  }
+
+  products.forEach(p => {
+    const revList = reviews[p.id] || [];
+    const avgRating = revList.length ? (revList.reduce((a,r)=>a+Number(r.rating),0)/revList.length).toFixed(1) : null;
+
+    const thumbHtml = p.imageUrl
+      ? `<img src="${escHtml(p.imageUrl)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="thumb-placeholder" style="display:none;">${p.emoji || '👔'}</div>`
+      : `<div class="thumb-placeholder">${p.emoji || '👔'}</div>`;
+
+    const metaParts = [];
+    if (p.material) metaParts.push(`🧵 ${p.material}`);
+    if (p.sizes)    metaParts.push(`📏 ${p.sizes}`);
+    if (p.use)      metaParts.push(`🎯 ${p.use}`);
+    if (p.durability) metaParts.push(`⏳ ${p.durability}`);
+
+    const reviewsHtml = revList.length
+      ? revList.slice(-2).reverse().map(r => `
+          <div class="review-item">
+            <div class="review-meta">
+              <span class="review-name">${escHtml(r.reviewerName)}</span>
+              <span class="review-stars">${'★'.repeat(Number(r.rating))}${'☆'.repeat(5-Number(r.rating))}</span>
+              <span class="review-date">${r.date ? r.date.split('T')[0] : ''}</span>
+            </div>
+            <div class="review-text">${escHtml(r.reviewText)}</div>
+          </div>`).join('')
+      : `<div class="no-reviews">No reviews yet — be the first!</div>`;
+
+    const ratingBadge = avgRating
+      ? `<span style="font-size:10px;color:var(--gold2);font-family:'JetBrains Mono',monospace;">★ ${avgRating} (${revList.length})</span>`
+      : '';
+
+    grid.innerHTML += `
+    <div class="product-card" id="card-${p.id}">
+      <div class="product-thumb" style="background:${p.bg||'var(--surface2)'}">
+        ${thumbHtml}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${escHtml(p.name)}</div>
+        <div class="product-desc">${escHtml(p.desc)}</div>
+        ${metaParts.length ? `<div class="product-meta">${metaParts.join(' &nbsp;·&nbsp; ')}</div>` : ''}
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <span class="product-price">₹ ${escHtml(p.price)}</span>
+          ${p.tag ? `<span class="product-tag">${escHtml(p.tag)}</span>` : ''}
+          ${ratingBadge}
+        </div>
+      </div>
+      <button class="btn-review-card" onclick="openReview('${p.id}','${escAttr(p.name)}')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Write a Review
+      </button>
+      <div class="product-reviews">${reviewsHtml}</div>
+      <div class="product-admin-actions">
+        <button class="btn-edit-prod" onclick="editProduct('${p.id}')">✏ Edit</button>
+        <button class="btn-del-prod" onclick="deleteProduct('${p.id}')">🗑 Delete</button>
+      </div>
+    </div>`;
+  });
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return String(s||'').replace(/'/g,'&#39;').replace(/"/g,'&quot;');
+}
+
+// ═══════════════════════════════
+// ADMIN FORM — SAVE / EDIT / DELETE
+// ═══════════════════════════════
+function saveProduct() {
+  const name = document.getElementById('f-name').value.trim();
+  const type = document.getElementById('f-type').value;
+  const use  = document.getElementById('f-use').value;
+  const mat  = document.getElementById('f-material').value;
+  const dur  = document.getElementById('f-durability').value;
+  const sizes= document.getElementById('f-sizes').value.trim();
+  const price= document.getElementById('f-price').value.trim();
+  const tag  = document.getElementById('f-tag').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const imgUrl = currentImageData || document.getElementById('f-img-url').value.trim();
+
+  if (!name || !type || !use || !price) {
+    toast('Please fill in Name, Type, Use, and Price.', 'error');
+    return;
+  }
+
+  setSyncStatus('loading', 'Saving product…');
+
+  // Determine image URL — if base64, embed it
+  const finalImgUrl = imgUrl;
+
+  const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
+
+  if (currentEditId) {
+    // Update
+    const idx = products.findIndex(p => p.id === currentEditId);
+    if (idx >= 0) {
+      products[idx] = { ...products[idx], name, type, use, material:mat, durability:dur, sizes, price, tag, desc, imageUrl:finalImgUrl, emoji: emojis[type]||'👔' };
+      saveProductsLocal();
+      syncProductToSheets(products[idx], 'updateProduct');
+    }
+    toast('Product updated!');
+  } else {
+    // Add new
+    const newProd = {
+      id: 'p' + Date.now(),
+      name, type, use, material:mat, durability:dur, sizes, price, tag, desc,
+      imageUrl: finalImgUrl,
+      emoji: emojis[type] || '👔',
+      bg: 'linear-gradient(135deg,#1a1e35,#2a2060)',
+      createdAt: new Date().toISOString()
+    };
+    products.push(newProd);
+    saveProductsLocal();
+    syncProductToSheets(newProd, 'addProduct');
+    toast('Product added!');
+  }
+
+  renderProducts();
+  resetForm();
+}
+
+function editProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+
+  currentEditId = id;
+  document.getElementById('edit-product-id').value = id;
+  document.getElementById('f-name').value = p.name || '';
+  document.getElementById('f-type').value = p.type || '';
+  document.getElementById('f-use').value = p.use || '';
+  document.getElementById('f-material').value = p.material || '';
+  document.getElementById('f-durability').value = p.durability || '';
+  document.getElementById('f-sizes').value = p.sizes || '';
+  document.getElementById('f-price').value = p.price || '';
+  document.getElementById('f-tag').value = p.tag || '';
+  document.getElementById('f-desc').value = p.desc || '';
+  document.getElementById('f-img-url').value = p.imageUrl && !p.imageUrl.startsWith('data:') ? p.imageUrl : '';
+
+  if (p.imageUrl && p.imageUrl.startsWith('data:')) {
+    currentImageData = p.imageUrl;
+    showImagePreview(p.imageUrl);
+  } else {
+    currentImageData = null;
+    if (p.imageUrl) showImagePreview(p.imageUrl);
+  }
+
+  document.getElementById('admin-panel-title').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit Product: ${escHtml(p.name)}`;
+  document.getElementById('save-btn-text').textContent = 'Update Product';
+  document.getElementById('cancel-edit-btn').style.display = '';
+
+  document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
+  toast('Editing: ' + p.name);
+}
+
+function deleteProduct(id) {
+  if (!confirm('Delete this product?')) return;
+  const sheetUrl = localStorage.getItem(KEY_SHEET_URL);
+  if (sheetUrl) {
+    fetch(sheetUrl, { method:'POST', body: JSON.stringify({ action:'deleteProduct', id }), headers:{'Content-Type':'application/json'} })
+      .catch(()=>{});
+  }
+  products = products.filter(p => p.id !== id);
+  saveProductsLocal();
+  renderProducts();
+  toast('Product deleted.', 'info');
+}
+
+function resetForm() {
+  currentEditId = null;
+  currentImageData = null;
+  ['f-name','f-type','f-use','f-material','f-durability','f-sizes','f-price','f-tag','f-desc','f-img-url'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('img-upload-placeholder').style.display = '';
+  document.getElementById('img-upload-preview').style.display = 'none';
+  document.getElementById('admin-panel-title').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Product`;
+  document.getElementById('save-btn-text').textContent = 'Save Product';
+  document.getElementById('cancel-edit-btn').style.display = 'none';
+}
+
+// ═══════════════════════════════
+// IMAGE HANDLING
+// ═══════════════════════════════
+function handleFileSelect(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) {
+    toast('Image too large. Max 2 MB. Use a smaller image or paste a URL instead.', 'error');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentImageData = e.target.result;
+    showImagePreview(currentImageData);
+    document.getElementById('f-img-url').value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  document.getElementById('img-upload-area').classList.remove('dragover');
+  const file = event.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    const dt = new DataTransfer();
+    dt.items.add(file);
+    document.getElementById('f-img-file').files = dt.files;
+    handleFileSelect({ target: { files: [file] } });
+  }
+}
+
+function showImagePreview(src) {
+  document.getElementById('img-preview-el').src = src;
+  document.getElementById('img-upload-placeholder').style.display = 'none';
+  document.getElementById('img-upload-preview').style.display = 'block';
+}
+
+function removeImage(event) {
+  event.stopPropagation();
+  currentImageData = null;
+  document.getElementById('f-img-file').value = '';
+  document.getElementById('img-preview-el').src = '';
+  document.getElementById('img-upload-placeholder').style.display = '';
+  document.getElementById('img-upload-preview').style.display = 'none';
+}
+
+function previewFromUrl(url) {
+  if (url && url.startsWith('http')) {
+    currentImageData = null;
+    showImagePreview(url);
+  }
+}
+
+// ═══════════════════════════════
+// GOOGLE SHEETS SYNC
+// ═══════════════════════════════
+function saveSheetUrl(url) {
+  localStorage.setItem(KEY_SHEET_URL, url);
+  setSyncStatus('ok', 'Sheet URL saved. Products will sync on next load.');
+}
+function saveReviewSheetUrl(url) {
+  localStorage.setItem(KEY_REV_URL, url);
+}
+
+function syncProductToSheets(product, action) {
+  const url = localStorage.getItem(KEY_SHEET_URL);
+  if (!url) { setSyncStatus('ok', 'Saved locally. No Google Sheets URL set yet.'); return; }
+
+  setSyncStatus('loading', 'Syncing to Google Sheets…');
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify({ action, product }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.status === 'ok') setSyncStatus('ok', 'Synced to Google Sheets ✓');
+    else setSyncStatus('error', 'Sheets error: ' + (d.msg || 'unknown'));
+  })
+  .catch(() => setSyncStatus('error', 'Sheets unreachable. Saved locally.'));
+}
+
+function syncFromSheets(url) {
+  fetch(url + '?action=getProducts')
+    .then(r => r.json())
+    .then(d => {
+      if (d.status === 'ok' && d.data && d.data.length) {
+        products = d.data.map(p => ({
+          id: p.id || 'p'+Date.now(),
+          name: p.name||'', type: p.type||'', use: p.use||'',
+          material: p.material||'', durability: p.durability||'',
+          sizes: p.sizes||'', price: p.price||'', tag: p.tag||'',
+          desc: p.desc||'', imageUrl: p.imageUrl||'',
+          emoji: '👔', bg: 'linear-gradient(135deg,#1a1e35,#2a2060)',
+          createdAt: p.createdAt||''
+        }));
+        saveProductsLocal();
+        renderProducts();
+        setSyncStatus('ok', 'Products synced from Google Sheets ✓');
+      }
+    })
+    .catch(() => {});
+}
+
+function testSheetConnection() {
+  const url = document.getElementById('sheets-url').value.trim();
+  if (!url) { toast('Paste the Web App URL first.', 'error'); return; }
+  const res = document.getElementById('sheet-test-result');
+  res.style.display = 'block';
+  res.style.color = 'var(--gold2)';
+  res.textContent = 'Testing connection…';
+  fetch(url + '?action=getProducts')
+    .then(r => r.json())
+    .then(d => {
+      if (d.status === 'ok') {
+        res.style.color = 'var(--mint)';
+        res.textContent = '✓ Connection successful! Found ' + (d.data||[]).length + ' products.';
+        saveSheetUrl(url);
+      } else {
+        res.style.color = 'var(--coral)';
+        res.textContent = '✗ Error: ' + (d.msg || 'check your script.');
+      }
+    })
+    .catch(e => {
+      res.style.color = 'var(--coral)';
+      res.textContent = '✗ Could not connect. Check CORS or deploy settings.';
+    });
+}
+
+function setSyncStatus(type, msg) {
+  const dot = document.getElementById('admin-sync-dot');
+  const m   = document.getElementById('admin-sync-msg');
+  dot.className = 'sync-dot' + (type==='ok'?'':type==='error'?' error':' loading');
+  m.textContent = msg;
+}
+
+// ═══════════════════════════════
+// REVIEWS
+// ═══════════════════════════════
+function openReview(productId, productName) {
+  currentReviewProductId = productId;
+  currentRating = 0;
+  document.getElementById('review-product-name').textContent = '// ' + productName;
+  document.getElementById('review-name').value = '';
+  document.getElementById('review-orderid').value = '';
+  document.getElementById('review-text').value = '';
+  document.getElementById('review-sync-status').style.display = 'none';
+  setRating(0);
+  document.getElementById('review-overlay').classList.add('active');
+}
+
+function closeReview() {
+  document.getElementById('review-overlay').classList.remove('active');
+}
+
+function setRating(val) {
+  currentRating = val;
+  document.querySelectorAll('.star-btn').forEach(b => {
+    b.classList.toggle('active', Number(b.dataset.v) <= val);
+  });
+}
+
+function submitReview() {
+  const name = document.getElementById('review-name').value.trim();
+  const orderId = document.getElementById('review-orderid').value.trim();
+  const text = document.getElementById('review-text').value.trim();
+
+  if (!name) { toast('Please enter your name.', 'error'); return; }
+  if (!currentRating) { toast('Please select a star rating.', 'error'); return; }
+  if (!text) { toast('Please write a short review.', 'error'); return; }
+
+  const prod = products.find(p => p.id === currentReviewProductId);
+
+  const review = {
+    id: 'r' + Date.now(),
+    productId: currentReviewProductId,
+    productName: prod ? prod.name : '',
+    reviewerName: name,
+    orderId,
+    rating: currentRating,
+    reviewText: text,
+    date: new Date().toISOString()
+  };
+
+  // Save locally
+  if (!reviews[currentReviewProductId]) reviews[currentReviewProductId] = [];
+  reviews[currentReviewProductId].push(review);
+  saveReviewsLocal();
+
+  // Sync to sheets
+  const revUrl = localStorage.getItem(KEY_REV_URL) || localStorage.getItem(KEY_SHEET_URL);
+  if (revUrl) {
+    const ss = document.getElementById('review-sync-status');
+    const sd = document.getElementById('review-sync-dot');
+    const sm = document.getElementById('review-sync-msg');
+    ss.style.display = 'flex';
+    sd.className = 'sync-dot loading';
+    sm.textContent = 'Saving review to Google Sheets…';
+    fetch(revUrl, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'addReview', review }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(r => r.json())
+    .then(d => {
+      sd.className = d.status==='ok' ? 'sync-dot' : 'sync-dot error';
+      sm.textContent = d.status==='ok' ? 'Review saved to Google Sheets ✓' : 'Saved locally only.';
+      setTimeout(closeReview, 1200);
+    })
+    .catch(() => {
+      sd.className = 'sync-dot error';
+      sm.textContent = 'Saved locally only (Sheets unreachable).';
+      setTimeout(closeReview, 1200);
+    });
+  } else {
+    closeReview();
+    toast('Review submitted! (No Sheets URL — saved locally)');
+  }
+
+  renderProducts();
+}
+
+// ═══════════════════════════════
+// AUTH
+// ═══════════════════════════════
 function setActive(el) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
 }
-
 function handleAdminTab() {
   if (isAdmin) {
-    document.getElementById('services').scrollIntoView({behavior:'smooth'});
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
   } else {
     openLogin();
   }
 }
-
 function openLogin() {
   document.getElementById("admin-overlay").classList.add("active");
   setTimeout(() => document.getElementById("login-user").focus(), 300);
@@ -828,7 +1685,9 @@ function doLogin() {
     document.getElementById("shirt-open").style.display = "flex";
     document.getElementById("pant-open").style.display = "flex";
     document.getElementById("admin-nav-tab").classList.add("active");
-    toast("Welcome, Admin! Services unlocked.");
+    renderProducts(); // re-render to show admin actions
+    toast("Welcome, Admin! Product manager unlocked.");
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
   } else {
     document.getElementById("login-err").classList.add("show");
     document.getElementById("login-pass").value = "";
@@ -846,41 +1705,38 @@ function doLogout() {
   document.getElementById("shirt-open").style.display = "none";
   document.getElementById("pant-open").style.display = "none";
   document.getElementById("admin-nav-tab").classList.remove("active");
+  resetForm();
   toast("Logged out successfully.", "info");
 }
-
 function openService(type) {
   if (!isAdmin) { openLogin(); return; }
-  if (type === 'shirt') {
-    window.location.href = 'index.html';
-  } else {
-    window.location.href = 'index_Pant.html';
-  }
+  window.location.href = type === 'shirt' ? 'index_Shirt.html' : 'index_Pant.html';
 }
 
-function copyUPI() {
-  const id = document.getElementById("upi-id-text").textContent;
-  navigator.clipboard.writeText(id).then(() => {
-    toast("UPI ID copied to clipboard!");
-  }).catch(() => {
-    toast("Please copy manually: " + id, "error");
-  });
-}
-
+// ═══════════════════════════════
+// TOAST
+// ═══════════════════════════════
 function toast(msg, type) {
   const el = document.createElement("div");
   el.className = "toast-item";
-  const icon = `<svg class="t-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+  const icon = type === 'error'
+    ? `<svg class="t-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`
+    : `<svg class="t-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
   el.innerHTML = icon + `<span>${msg}</span>`;
   document.getElementById("toast").appendChild(el);
   setTimeout(() => el.remove(), 4000);
 }
 
+// ═══════════════════════════════
+// SCROLL NAV HIGHLIGHT
+// ═══════════════════════════════
 document.getElementById("admin-overlay").addEventListener("click", function(e) {
   if (e.target === this) closeLogin();
 });
+document.getElementById("review-overlay").addEventListener("click", function(e) {
+  if (e.target === this) closeReview();
+});
 
-// Highlight active nav tab on scroll
 const sections = ['home','products','pay','contact','services'];
 const navTabs = document.querySelectorAll('.nav-tab[href]');
 window.addEventListener('scroll', () => {
@@ -896,4 +1752,3 @@ window.addEventListener('scroll', () => {
 </script>
 </body>
 </html>
- 
