@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>PL Garments — Pant</title>
+<title>PL Garments — Your First Choice for Stitch work</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root {
@@ -456,7 +456,7 @@ select option { background: var(--surface2); color: var(--text); }
       </svg>
     </div>
     <div>
-      <div class="brand-name">PL Garments-Pant</div>
+      <div class="brand-name">PL Garments - Products </div>
       <div class="brand-sub">Your First Choice for Stitch work</div>
     </div>
     <span class="conn-pill disconnected" id="conn-status">
@@ -472,13 +472,14 @@ select option { background: var(--surface2); color: var(--text); }
     <nav class="header-nav">
         <button onclick="openService3('home')" style="font-size:12px;color:var(--violet2);background:var(--violet-dim);border:1px solid var(--border2);padding:6px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;cursor:pointer;"> HOME</button>
     </nav>
+
     <button class="btn btn-ghost btn-sm" onclick="showConfig()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
       <span class="hide-sm">Settings</span>
     </button>
     <button class="btn btn-primary btn-sm hide-sm" onclick="scrollToForm(); focusForm()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      New Order
+      Add Product
     </button>
   </div>
 </header>
@@ -507,149 +508,179 @@ select option { background: var(--surface2); color: var(--text); }
   </div>
 
   <!-- Form Panel -->
-  <div class="panel" id="form-panel">
-    <div class="panel-header">
-      <div class="panel-title">
-        <span class="pt-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </span>
-        Measurement - Pant
-        <span class="panel-badge" id="form-mode-badge">NEW</span>
+  <div id="admin-panel">
+    <div class="admin-panel-header">
+      <div class="admin-panel-title" id="admin-panel-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Add New Product
       </div>
-      <div id="editing-indicator" style="display:none; align-items:center; gap:10px;">
-        <span class="edit-ind">Editing</span>
-        <button class="btn btn-ghost btn-xs" onclick="resetForm()">Cancel</button>
+      <!-- <div class="admin-panel-badge">ADMIN MODE</div> -->
+    </div>
+
+    <!-- Hidden edit ID -->
+    <input type="hidden" id="edit-product-id"/>
+
+    <div class="form-grid">
+      <!-- Name -->
+      <div class="form-field full">
+        <label>Product Name *</label>
+        <input type="text" id="f-name" placeholder="e.g. Premium Formal Shirt"/>
+      </div>
+      <!-- Type of clothes -->
+      <div class="form-field">
+        <label>Type of Clothing *</label>
+        <select id="f-type">
+          <option value="">Select type…</option>
+          <option>Shirt</option>
+          <option>Kurta</option>
+          <option>Trouser / Pant</option>
+          <option>Blazer</option>
+          <option>School Uniform</option>
+          <option>Party Wear</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <!-- Type of use -->
+      <div class="form-field">
+        <label>Type of Use *</label>
+        <select id="f-use">
+          <option value="">Select use…</option>
+          <option>Formal / Office</option>
+          <option>Casual</option>
+          <option>Party / Festive</option>
+          <option>Traditional</option>
+          <option>School / Uniform</option>
+          <option>Sports / Active</option>
+        </select>
+      </div>
+      <!-- Material -->
+      <div class="form-field">
+        <label>Material / Fabric *</label>
+        <select id="f-material">
+          <option value="">Select material…</option>
+          <option>Cotton</option>
+          <option>Linen</option>
+          <option>Polyester</option>
+          <option>Silk / Satin</option>
+          <option>Rayon</option>
+          <option>Blended</option>
+          <option>Denim</option>
+          <option>Woolen</option>
+        </select>
+      </div>
+      <!-- Durability -->
+      <div class="form-field">
+        <label>Durability</label>
+        <select id="f-durability">
+          <option value="">Select…</option>
+          <option>1–2 years</option>
+          <option>2–4 years</option>
+          <option>4–6 years</option>
+          <option>6+ years</option>
+        </select>
+      </div>
+      <!-- Sizes -->
+      <div class="form-field">
+        <label>Available Sizes</label>
+        <input type="text" id="f-sizes" placeholder="e.g. S, M, L, XL, XXL or 38–44"/>
+      </div>
+      <!-- Price -->
+      <div class="form-field">
+        <label>Price (₹) *</label>
+        <input type="text" id="f-price" placeholder="e.g. 300 or 300+"/>
+      </div>
+      <!-- Tag -->
+      <div class="form-field">
+        <label>Badge / Tag</label>
+        <input type="text" id="f-tag" placeholder="e.g. Popular, New, Best Seller"/>
+      </div>
+      <!-- Description -->
+      <div class="form-field full">
+        <label>Short Description</label>
+        <textarea id="f-desc" placeholder="Brief description of the product…"></textarea>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="form-field full">
+        <label>Product Image</label>
+
+        <!-- Warning banner shown when Sheets URL is set -->
+        <div id="img-sheets-warning" style="display:none;background:rgba(245,200,66,0.10);border:1px solid rgba(245,200,66,0.35);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--gold2);line-height:1.7;">
+          ⚠ File upload cannot sync to Google Sheets (images are too large for URL parameters).<br/>
+          <strong>Use a public image URL instead</strong> — upload your photo to <a href="https://imgbb.com" target="_blank" style="color:var(--violet2);">ImgBB.com</a> (free), copy the Direct Link, and paste it below.
+        </div>
+
+        <!-- Upload from device -->
+        <div id="img-upload-area-wrap">
+          <div class="img-upload-area" id="img-upload-area" ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')" ondrop="handleDrop(event)">
+            <input type="file" id="f-img-file" accept="image/*" onchange="handleFileSelect(event)"/>
+            <div id="img-upload-placeholder">
+              <svg class="img-upload-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <div class="img-upload-text">Tap to upload or drag &amp; drop</div>
+              <div class="img-upload-sub">JPG, PNG, WEBP — max 2 MB (local only, won't sync to Sheets)</div>
+            </div>
+            <div id="img-upload-preview" style="display:none;">
+              <div class="img-preview-wrap">
+                <img id="img-preview-el" class="img-preview" src="" alt="preview"/>
+                <button class="img-remove-btn" onclick="removeImage(event)">×</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Public image URL field -->
+        <div class="img-url-field" style="margin-top:8px;">
+          <label style="font-size:10px;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;display:block;margin-bottom:5px;">
+            Public image URL <span id="img-url-recommended" style="color:var(--gold2);display:none;">(recommended — syncs to Sheets ✓)</span>
+          </label>
+          <input type="url" id="f-img-url" placeholder="https://i.ibb.co/xxxxx/photo.jpg  or  any direct image URL" style="font-size:13px;" oninput="previewFromUrl(this.value)"/>
+        </div>
       </div>
     </div>
-    <div class="panel-body">
-      <div class="form-grid">
 
-   
-   <input type="hidden" id="f-id"/>
-        <div class="form-group span-2">
-          <label>Customer Name <span class="req">*</span></label>
-          <input id="f-name" type="text" placeholder="e.g. Bharat Rohit" autocomplete="name"/>
-        </div>
-        <div class="form-group span-2">
-          <label>Address</label>
-          <input id="f-addr" type="text" placeholder="Street / Area / Colony"/>
-        </div>
-
-  <div class="form-group span-2">
-          <label>Mobile</label>
-          <input id="f-mobile" type="number" placeholder="987654321"/>
-        </div>
-
-        <div class="form-group">
-          <label>Date of Order<span class="req">*</span></label>
-          <input id="f-reg-date" type="date"/>
-        </div>
-        <div class="form-group">
-          <label>Date of Completion<span class="req">*</span></label>
-          <input id="f-del-date" type="date"/>
-        </div>
-        <div class="form-group">
-          <label>Status</label>
-          <select id="f-status">
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
-          </select>
-        </div>
-														
-        <div class="sec-label">Pant Measurements <span style="font-size:7px;opacity:.40;margin-left:4px;letter-spacing:.1em">INCHES</span></div>
-        <div class="form-group">
-          <label>Pant Length</label>
-          <input id="f-pant-len" type="number" step="0.5" min="0" inputmode="decimal" placeholder="28.5"/>
-        </div>
-        <div class="form-group">
-          <label>Hip</label>
-          <input id="f-hip" type="number" step="0.5" min="0" inputmode="decimal" placeholder="18"/>
-        </div>
-        <div class="form-group">
-          <label>Waist</label>
-          <input id="f-waist" type="number" step="0.5" min="0" inputmode="decimal" placeholder="40"/>
-        </div>
-        <div class="form-group">
-          <label>Thai</label>
-          <input id="f-thai" type="number" step="0.5" min="0" inputmode="decimal" placeholder="16.5"/>
-        </div>
-        <div class="form-group">
-          <label>Neck</label>
-          <input id="f-neck" type="number" step="0.5" min="0" inputmode="decimal" placeholder="24"/>
-        </div>
-        <div class="form-group">
-          <label>Mohari</label>
-          <input id="f-mohari" type="number" step="0.5" min="0" inputmode="decimal" placeholder="14"/>
-        </div>
-
-   	<div class="form-group">
-          <label>Sheet</label>
-          <input id="f-sheet" type="number" step="0.5" min="0" inputmode="decimal" placeholder="14"/>
-        </div>
-
-   	<div class="form-group">
-          <label>Deposit</label>
-          <input id="f-deposit" type="number" step="0.5" min="0" inputmode="decimal" placeholder="100"/>
-        </div>
-
-   	<div class="form-group">
-          <label>Total</label>
-          <input id="f-total" type="number" step="0.5" min="0" inputmode="decimal" placeholder="250"/>
-        </div>
-      </div>
-      <div class="form-actions">
-        <button class="btn btn-gold" id="submit-btn" onclick="handleSubmit()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Save Order
-        </button>
-        <button class="btn btn-ghost" onclick="resetForm()">Clear</button>
-        <span style="margin-left:auto;font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;">All in inches</span>
-      </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="saveProduct()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        <span id="save-btn-text">Save Product</span>
+      </button>
+      <button class="btn btn-ghost" onclick="resetForm()" id="cancel-edit-btn" style="display:none;">Cancel Edit</button>
     </div>
+
+    <div class="sync-status" id="admin-sync-status">
+      <div class="sync-dot" id="admin-sync-dot"></div>
+      <span id="admin-sync-msg">Products loaded from Google sheet. Connect Google Sheets for cloud sync.</span>
+    </div>
+
+    
   </div>
 
+
+
   <!-- Orders Panel -->
-  <div class="panel">
-    <div class="panel-header">
-      <div class="panel-title">
-        <span class="pt-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-        </span>
-        All Orders
-        <span class="panel-badge" id="records-count-badge">0</span>
+  <div style="margin-top:28px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text2);">Saved Products</span>
+        <span id="records-count-badge" style="background:var(--violet-dim);color:var(--violet2);border:1px solid var(--border2);border-radius:20px;padding:2px 10px;font-size:11px;font-family:'JetBrains Mono',monospace;">0</span>
+        <span id="filter-label" style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;"></span>
       </div>
-      <button class="btn btn-ghost btn-xs" onclick="loadRecords()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-        Refresh
-      </button>
-      
-    </div>
-    <div class="panel-body" style="padding-bottom:12px">
-      <div class="toolbar">
-        <div class="sw">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="search" id="search-box" placeholder="Search by name or address or Mobile…" oninput="filterRecords()" autocomplete="off"/>
-        </div>
-        <select class="fsel" id="status-filter" onchange="filterRecords()">
-          <option value="">All statuses</option>
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="search-box" type="text" placeholder="Search products…" oninput="filterRecords()"
+          style="padding:6px 12px;border-radius:8px;border:1px solid var(--border2);background:var(--surface2);color:var(--text1);font-size:13px;font-family:'JetBrains Mono',monospace;width:180px;outline:none;"/>
+        <select id="status-filter" onchange="filterRecords()"
+          style="padding:6px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);font-size:12px;font-family:'JetBrains Mono',monospace;">
+          <option value="">All Types</option>
+          <option>Shirt</option><option>Kurta</option><option>Trouser / Pant</option>
+          <option>Blazer</option><option>School Uniform</option><option>Party Wear</option><option>Other</option>
         </select>
-        <span class="flabel" id="filter-label"></span>
-      </div>
-      <div class="orders-list" id="orders-list">
-        <div class="empty-state">
-          <div class="ei"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
-          <div class="et">Connect your Google Sheet to begin</div>
-          <div class="es">Paste your Apps Script URL above and click Connect</div>
-        </div>
       </div>
     </div>
+    <div id="sheet-test-result" style="margin-bottom:10px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text3);min-height:18px;word-break:break-all;"></div>
+    <div class="orders-list" id="orders-list"></div>
   </div>
 
 </main>
+
 
 <!-- FOOTER -->
 <footer>
@@ -658,33 +689,25 @@ select option { background: var(--surface2); color: var(--text); }
 </footer>
 
 <script>
-let API_URL = localStorage.getItem("stitchart_api_url") || "";
+let API_URL = localStorage.getItem("tailor_api_url") || "";
 let allRecords = [];
 let editingId = null;
-		
+
 const FIELDS = [
-  { id:"f-name",       key:"Customer Name" },
-  { id:"f-addr",       key:"Address" },
-  { id:"f-mobile",     key:"Mobile" },
-  { id:"f-reg-date",   key:"Order_Date" },
-  { id:"f-del-date",   key:"Delivery_Date" },
-  { id:"f-status",     key:"Status" },
-  { id:"f-pant-len",   key:"Pant_Length" }, 
-  { id:"f-hip",        key:"Hip" },
-  { id:"f-waist",      key:"Waist" },
-  { id:"f-thai",       key:"Thai" },
-  { id:"f-neck",       key:"Neck" },
-  { id:"f-mohari",     key:"Mohari" },
-  { id:"f-sheet" ,     key:"Sheet" },
-  { id:"f-deposit",    key:"Deposit" },
-  { id:"f-total",      key:"Total" },
-
-
-
+  { id:"f-name",       key:"name" },
+  { id:"f-type",       key:"type" },
+  { id:"f-use",        key:"use" },
+  { id:"f-material",   key:"material" },
+  { id:"f-durability", key:"durability" },
+  { id:"f-sizes",      key:"sizes" },
+  { id:"f-price",      key:"price" },
+  { id:"f-tag",        key:"tag" },
+  { id:"f-desc",       key:"desc" },
+  { id:"f-img-url",    key:"imageUrl" },
 ];
 
 window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("f-reg-date").value = todayStr();
+  // document.getElementById("f-reg-date").value = todayStr();
   if (API_URL) {
     document.getElementById("url-input").value = API_URL;
     document.getElementById("config-banner").style.display = "none";
@@ -701,7 +724,7 @@ function showConfig() {
 }
 
 function openService3(type) {
-  window.location.href = type === 'home' ? 'index.html' : 'index_pant.html';
+  window.location.href = type === 'home' ? 'index.html' : 'index_product.html';
 }
 
 function setConnected(yes) {
@@ -714,89 +737,106 @@ function saveUrl() {
   const val = document.getElementById("url-input").value.trim();
   if (!val.startsWith("https://script.google.com")) { toast("Please enter a valid Apps Script URL", "error"); return; }
   API_URL = val;
-  localStorage.setItem("stitchart_api_url", API_URL);
+  localStorage.setItem("tailor_api_url", API_URL);
   toast("Connecting…");
   setConnected(true);
   document.getElementById("config-banner").style.display = "none";
   loadRecords();
 }
 
-async function testConnection() {
-  const val = document.getElementById("url-input").value.trim();
-  if (!val) { toast("Enter a URL first", "error"); return; }
-  showLoader("Testing connection…");
-  try {
-    const res = await fetch(val + "?action=getAll");
-    const data = await res.json();
-    if (data.success !== undefined) toast("Connected — " + (data.records?.length || 0) + " records found");
-    else toast("Unexpected response", "error");
-  } catch(e) { toast("Failed: " + e.message, "error"); }
-  finally { hideLoader(); }
-}
-
-async function apiCall(action, payload = {}) {
-  if (!API_URL) { toast("Please connect your Google Sheet first", "error"); return null; }
-  const res = await fetch(API_URL, { method:"POST", body: JSON.stringify({ action, data: payload }) });
-  if (!res.ok) throw new Error("HTTP " + res.status);
-  return res.json();
+function testConnection() {
+  const url = API_URL || document.getElementById("url-input").value.trim();
+  if (!url) { toast("Enter a URL first", "error"); return; }
+  const res = document.getElementById("sheet-test-result");
+  res.style.color = "var(--gold2)";
+  res.textContent = "Testing connection…";
+  fetch(url + "?action=getProducts&_=" + Date.now(), { cache: "no-store" })
+    .then(r => r.json())
+    .then(d => {
+      if (d.status === "ok") {
+        res.style.color = "var(--mint)";
+        res.textContent = "✓ Connected! Found " + (d.data||[]).length + " products.";
+      } else {
+        res.style.color = "var(--coral)";
+        res.textContent = "✗ Error: " + (d.msg || "check your script.");
+      }
+    })
+    .catch(() => { res.style.color = "var(--coral)"; res.textContent = "✗ Could not connect. Check deploy settings."; });
 }
 
 async function loadRecords() {
-  showLoader("Loading orders…");
+  showLoader("Loading products…");
   try {
     if (!API_URL) { hideLoader(); return; }
-    const res = await fetch(API_URL + "?action=getAll");
+    // Cache-bust so the browser never serves a stale GAS response
+    const res  = await fetch(API_URL + "?action=getProducts&_=" + Date.now(), { cache: "no-store" });
     const data = await res.json();
-    if (data.error) { toast(data.error, "error"); setConnected(false); return; }
-    allRecords = data.records || [];
+    if (data.status === "error") { toast("Script error: " + data.msg, "error"); setConnected(false); return; }
+    allRecords = data.data || [];
     setConnected(true);
     renderCards(allRecords);
-    if (allRecords.length > 0) toast("Loaded " + allRecords.length + " order" + (allRecords.length !== 1 ? "s" : ""));
+    if (allRecords.length > 0)
+      toast("Loaded " + allRecords.length + " product" + (allRecords.length !== 1 ? "s" : ""));
   } catch(e) { toast("Failed to load: " + e.message, "error"); setConnected(false); }
   finally { hideLoader(); }
 }
 
-async function handleSubmit() {
+async function saveProduct() {
   const rec = getFormData();
-  if (!rec["Customer Name"]) { toast("Customer name is required", "error"); return; }
-  showLoader(editingId ? "Updating order…" : "Saving order…");
+  if (!rec["name"]) { toast("Product name is required", "error"); return; }
+  showLoader(editingId ? "Updating product…" : "Saving product…");
   try {
-    const payload = editingId ? { id: editingId, ...rec } : rec;
-    const data = await apiCall(editingId ? "update" : "create", payload);
-    if (!data) return;
-    if (data.error) { toast(data.error, "error"); return; }
-    toast(editingId ? "Order updated!" : "Order saved!");
+    if (editingId) rec["id"] = editingId;
+    else { rec["id"] = Date.now().toString(); rec["createdAt"] = new Date().toISOString(); }
+    const action = editingId ? "updateProduct" : "addProduct";
+    const url = API_URL + "?action=" + action
+              + "&product=" + encodeURIComponent(JSON.stringify(rec))
+              + "&_=" + Date.now();
+    const res  = await fetch(url, { cache: "no-store" });
+    const data = await res.json();
+    if (data.status === "error") { toast(data.msg, "error"); return; }
+    toast(editingId ? "Product updated!" : "Product saved!");
     resetForm();
     await loadRecords();
   } catch(e) { toast("Error: " + e.message, "error"); }
   finally { hideLoader(); }
 }
 
+async function deleteProduct(id) {
+  if (!confirm("Delete this product?")) return;
+  showLoader("Deleting…");
+  try {
+    const url  = API_URL + "?action=deleteProduct&id=" + encodeURIComponent(id) + "&_=" + Date.now();
+    const res  = await fetch(url, { cache: "no-store" });
+    const data = await res.json();
+    if (data.status === "error") { toast(data.msg, "error"); return; }
+    toast("Product deleted.");
+    await loadRecords();
+  } catch(e) { toast("Error: " + e.message, "error"); }
+  finally { hideLoader(); }
+}
+
 function editRecord(id) {
-  const rec = allRecords.find(r => String(r["ID"]) === String(id));
+  const rec = allRecords.find(r => String(r["id"]) === String(id));
   if (!rec) return;
   editingId = id;
-  document.getElementById("f-id").value = rec["ID"] || "";
+  const hidEl = document.getElementById("edit-product-id"); if (hidEl) hidEl.value = id;
   FIELDS.forEach(f => { const el = document.getElementById(f.id); if (el) el.value = rec[f.key] || ""; });
-  document.getElementById("form-mode-badge").textContent = "EDIT";
-  document.getElementById("form-mode-badge").className = "panel-badge em";
-  document.getElementById("submit-btn").innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Update Order`;
-  document.getElementById("editing-indicator").style.display = "flex";
-  scrollToForm();
+  const t = document.getElementById("admin-panel-title");
+  if (t) t.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit Product`;
+  const s = document.getElementById("save-btn-text"); if (s) s.textContent = "Update Product";
+  const c = document.getElementById("cancel-edit-btn"); if (c) c.style.display = "inline-flex";
+  document.getElementById("admin-panel").scrollIntoView({ behavior:"smooth", block:"start" });
 }
 
 function resetForm() {
   editingId = null;
-  document.getElementById("f-id").value = "";
-  FIELDS.forEach(f => {
-    const el = document.getElementById(f.id);
-    if (!el) return;
-    el.value = f.key === "Status" ? "Not Started" : f.key === "Order_Date" ? todayStr() : "";
-  });
-  document.getElementById("form-mode-badge").textContent = "NEW";
-  document.getElementById("form-mode-badge").className = "panel-badge";
-  document.getElementById("submit-btn").innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Save Order`;
-  document.getElementById("editing-indicator").style.display = "none";
+  const hidEl = document.getElementById("edit-product-id"); if (hidEl) hidEl.value = "";
+  FIELDS.forEach(f => { const el = document.getElementById(f.id); if (el) el.value = ""; });
+  const t = document.getElementById("admin-panel-title");
+  if (t) t.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>Add New Product`;
+  const s = document.getElementById("save-btn-text"); if (s) s.textContent = "Save Product";
+  const c = document.getElementById("cancel-edit-btn"); if (c) c.style.display = "none";
   renderCards(allRecords);
 }
 
@@ -806,8 +846,9 @@ function getFormData() {
   return obj;
 }
 
-function scrollToForm() { document.getElementById("form-panel").scrollIntoView({ behavior:"smooth", block:"start" }); }
-function focusForm() { setTimeout(() => document.getElementById("f-name").focus(), 400); }
+function scrollToForm() { document.getElementById("admin-panel").scrollIntoView({ behavior:"smooth", block:"start" }); }
+function focusForm()    { setTimeout(() => document.getElementById("f-name").focus(), 400); }
+
 
 const COLOR_MAP = {
   White:"#f5f5f0",Black:"#1a1510",Ivory:"#fffff0",Gold:"#d4a84b",
@@ -818,7 +859,7 @@ const COLOR_MAP = {
 function statusBadge(s) {
   if (!s) s = "Not Started";
   const sl = s.trim().toLowerCase();
-  const cls   = sl === "complete" ? "done" : sl === "in progress" ? "ip" : "ns";
+  const cls = sl === "complete" ? "done" : sl === "in progress" ? "ip" : "ns";
   const label = sl === "complete" ? "Complete" : sl === "in progress" ? "In Progress" : "Not Started";
   return `<span class="badge ${cls}"><span class="bdot"></span>${label}</span>`;
 }
@@ -833,74 +874,42 @@ function fmtDate(d) {
 }
 
 function renderCards(records) {
-  document.getElementById("records-count-badge").textContent = records.length;
-  const container = document.getElementById("orders-list");
-
+  const badge = document.getElementById("records-count-badge"); if (badge) badge.textContent = records.length;
+  const container = document.getElementById("orders-list"); if (!container) return;
   if (!records.length) {
-    container.innerHTML = `<div class="empty-state">
-      <div class="ei"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
-      <div class="et">No orders found</div>
-      <div class="es">Add your first customer order above</div>
-    </div>`;
+    container.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:12px;"><div style="font-size:32px;margin-bottom:10px;">📦</div>No products found. Add your first product above.</div>`;
     return;
   }
-							
   container.innerHTML = records.map(r => {
-    const id       = r["ID"] || "";
-    const name     = r["Customer Name"] || "—";
-    const btnColor = r["Button_Color"] || "";
-    const dotColor = COLOR_MAP[btnColor] || (btnColor.match(/^#[0-9a-fA-F]{3,6}$/) ? btnColor : "#666");
-    
-    const isEdit   = String(editingId) === String(id);
-    const addr     = [r["Address"]].filter(Boolean).join(", ");
-    const meas     = [
-      { l:"Pant Len",   v:r["Pant_Length"] },
-      { l:"Hip",     	v:r["Hip"] },
-      { l:"Waist",     	v:r["Waist"] },
-      { l:"Thai",       v:r["Thai"] },
-      { l:"Neck",    	v:r["Neck"] },
-      { l:"Mohari",  	v:r["Mohari"] },
-      { l:"Sheet",      v:r["Sheet"] },
-      { l:"Mobile No",  v:r["Mobile"] },
-      { l:"Address",    v:r["Address"] },
-      { l:"Deposit",   	v:r["Deposit"] },
-      { l:"Total",     	v:r["Total"] },
-     
-
-
-    ];
-    const hasMeas = meas.some(m => m.v);
-
-    return `<div class="order-card  ${isEdit ? 'rsel' : ''}">
-      <div class="oc-top">
-        <div>
-          <div class="oc-name">${name}</div>
-          <div class="oc-id">#${id}</div>
+    const id       = r["id"]       || "";
+    const name     = r["name"]     || "Unnamed";
+    const type     = r["type"]     || "";
+    const use      = r["use"]      || "";
+    const material = r["material"] || "";
+    const sizes    = r["sizes"]    || "";
+    const price    = r["price"]    || "";
+    const tag      = r["tag"]      || "";
+    const desc     = r["desc"]     || "";
+    const imgUrl   = r["imageUrl"] || "";
+    return `<div style="background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:16px;display:flex;gap:14px;align-items:flex-start;margin-bottom:12px;">
+      ${imgUrl
+        ? `<img src="${imgUrl}" alt="${name}" style="width:70px;height:70px;object-fit:cover;border-radius:8px;flex-shrink:0;" onerror="this.style.display='none'"/>`
+        : `<div style="width:70px;height:70px;border-radius:8px;background:var(--surface3,#1e2030);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;">👔</div>`}
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+          <span style="font-weight:700;font-size:15px;color:var(--text1);">${name}</span>
+          ${tag ? `<span style="background:rgba(245,200,66,0.12);color:#c9a640;border:1px solid rgba(245,200,66,0.25);border-radius:20px;padding:1px 8px;font-size:10px;font-family:'JetBrains Mono',monospace;">${tag}</span>` : ""}
         </div>
-        ${statusBadge(r["Status"])}
-      </div>
-      ${addr ? `<div class="oc-addr">📍 ${addr}</div>` : ''}
-      <div class="oc-dates">
-        <div class="oc-date">
-          <div class="oc-date-lbl">Order Date</div>
-          <div class="oc-date-val">${fmtDate(r["Order_Date"])}</div>
+        <div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">
+          ${[type, material, use, sizes ? "Sizes: "+sizes : ""].filter(Boolean).join(" · ")}
         </div>
-        <div class="oc-date">
-          <div class="oc-date-lbl">Completion Date</div>
-	  <div class="oc-date-val">${fmtDate(r["Delivery_Date"])}</div>
-           
-        </div>
-      </div>
-      ${hasMeas ? `<div class="oc-meas">
-        ${meas.map(m => `<div class="oc-m"><div class="oc-m-lbl">${m.l}</div><div class="oc-m-val">${m.v || '—'}</div></div>`).join('')}
-      </div>` : ''}
-      <div class="oc-bot">
-        ${btnColor ? `<span class="sw-wrap"><span class="sw-dot" style="background:${dotColor};${dotColor==='transparent'?'border:1.5px dashed #666':''}"></span>${btnColor}</span>` : ''}
-        <div class="oc-actions">
-          <button class="btn btn-primary btn-xs" onclick="editRecord('${id}')">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            Edit
-          </button>
+        ${desc ? `<div style="font-size:12px;color:var(--text2);margin-bottom:8px;">${desc}</div>` : ""}
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          ${price ? `<span style="font-size:16px;font-weight:700;color:var(--mint);">₹${price}</span>` : "<span></span>"}
+          <div style="display:flex;gap:6px;">
+            <button onclick="editRecord('${id}')" style="padding:4px 12px;border-radius:6px;border:1px solid var(--border2);background:var(--violet-dim);color:var(--violet2);font-size:11px;font-family:'JetBrains Mono',monospace;cursor:pointer;">Edit</button>
+            <button onclick="deleteProduct('${id}')" style="padding:4px 12px;border-radius:6px;border:1px solid rgba(255,107,107,0.25);background:rgba(255,107,107,0.08);color:var(--coral);font-size:11px;font-family:'JetBrains Mono',monospace;cursor:pointer;">Delete</button>
+          </div>
         </div>
       </div>
     </div>`;
@@ -911,12 +920,14 @@ function filterRecords() {
   const q  = document.getElementById("search-box").value.toLowerCase();
   const sf = document.getElementById("status-filter").value;
   const filtered = allRecords.filter(r => {
-    const matchText   = !q || (r["Customer Name"]||"").toLowerCase().includes(q) || (r["Address"]||"").toLowerCase().includes(q) || (r["Mobile"]||"").toLowerCase().includes(q);
-    const matchStatus = !sf || (r["Status"]||"").trim().toLowerCase() === sf.trim().toLowerCase();
-    return matchText && matchStatus;
+    const matchText = !q || ["name","type","material","desc"]
+      .some(k => (r[k]||"").toLowerCase().includes(q));
+    const matchType = !sf || (r["type"]||"").trim() === sf.trim();
+    return matchText && matchType;
   });
   renderCards(filtered);
-  document.getElementById("filter-label").textContent = (q||sf) ? `${filtered.length} of ${allRecords.length}` : "";
+  const fl = document.getElementById("filter-label");
+  if (fl) fl.textContent = (q||sf) ? `${filtered.length} of ${allRecords.length}` : "";
 }
 
 function showLoader(t="Loading…") { document.getElementById("loader-text").textContent=t; document.getElementById("loader").classList.add("active"); }

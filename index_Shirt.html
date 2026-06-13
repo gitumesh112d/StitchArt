@@ -148,6 +148,19 @@ header::after {
 @keyframes pdot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.7);} }
 .header-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border); padding: 24px 20px 28px;
+  text-align: center; color: var(--text3); font-size: 12px;
+  font-family: 'JetBrains Mono', monospace; letter-spacing: 0.08em;
+}
+footer::before {
+  content: ''; display: block; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--violet), var(--gold), transparent);
+  opacity: 0.3; margin-bottom: 24px;
+}
+
 /* ── BUTTONS ── */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
@@ -443,7 +456,7 @@ select option { background: var(--surface2); color: var(--text); }
     </div>
     <div>
       <div class="brand-name">PL Garments - Shirts</div>
-      <div class="brand-sub">Order Management</div>
+      <div class="brand-sub">Your First Choice for Stitch work</div>
     </div>
     <span class="conn-pill disconnected" id="conn-status">
       <span class="conn-dot"></span>
@@ -455,6 +468,10 @@ select option { background: var(--surface2); color: var(--text); }
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       Refresh
     </button>
+    <nav class="header-nav">
+        <button onclick="openService3('home')" style="font-size:12px;color:var(--violet2);background:var(--violet-dim);border:1px solid var(--border2);padding:6px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;cursor:pointer;"> HOME</button>
+    </nav>
+
     <button class="btn btn-ghost btn-sm" onclick="showConfig()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
       <span class="hide-sm">Settings</span>
@@ -463,6 +480,7 @@ select option { background: var(--surface2); color: var(--text); }
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       New Order
     </button>
+  
   </div>
 </header>
 
@@ -643,6 +661,13 @@ select option { background: var(--surface2); color: var(--text); }
 
 </main>
 
+<!-- FOOTER -->
+<footer>
+  <div>© 2026 PL Garments — Your First Choice for Stitch work, Rahatgarh &nbsp;·&nbsp; This page is Crafted with ❤️ by Umesh Gupta. &nbsp;&nbsp; All rights reserved</div>
+  <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
+</footer>
+
+
 <script>
 let API_URL = localStorage.getItem("tailor_api_url") || "";
 let allRecords = [];
@@ -692,6 +717,10 @@ function setConnected(yes) {
   const el = document.getElementById("conn-status");
   el.className = "conn-pill " + (yes ? "connected" : "disconnected");
   document.getElementById("conn-text").textContent = yes ? "Connected" : "Not connected";
+}
+
+function openService3(type) {
+  window.location.href = type === 'home' ? 'index.html' : 'index_shirt.html';
 }
 
 function saveUrl() {
@@ -801,9 +830,9 @@ const COLOR_MAP = {
 
 function statusBadge(s) {
   if (!s) s = "Not Started";
-  const sl = s.toLowerCase();
-  const cls = sl === "complete" ? "done" : sl === "In progress" ? "ip" : "ns";
-  const label = sl === "complete" ? "Complete" : sl === "In progress" ? "In Progress" : "Not Started";
+  const sl = s.trim().toLowerCase();
+  const cls = sl === "complete" ? "done" : sl === "in progress" ? "ip" : "ns";
+  const label = sl === "complete" ? "Complete" : sl === "in progress" ? "In Progress" : "Not Started";
   return `<span class="badge ${cls}"><span class="bdot"></span>${label}</span>`;
 }
 
@@ -898,7 +927,7 @@ function filterRecords() {
   const sf = document.getElementById("status-filter").value;
   const filtered = allRecords.filter(r => {
     const matchText   = !q || (r["Customer Name"]||"").toLowerCase().includes(q) || (r["Adress"]||"").toLowerCase().includes(q) || (r["Mobile"]||"").toLowerCase().includes(q);
-    const matchStatus = !sf || (r["Status"]||"").toLowerCase() === sf.toLowerCase();
+    const matchStatus = !sf || (r["Status"]||"").trim().toLowerCase() === sf.trim().toLowerCase();
     return matchText && matchStatus;
   });
   renderCards(filtered);

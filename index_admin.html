@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>PL Garments — Your First Choice for Stitch work</title>
+<title>PL Garments - Your First Choice for Stitch work - Admin Panel</title>
+<script>
+  if (sessionStorage.getItem('admin_auth') !== '1') {
+    window.location.replace('index.html');
+  }
+</script>
+<script>
+  if (sessionStorage.getItem('admin_auth') !== '1') {
+    window.location.replace('index.html');
+  }
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 /* ── ROOT TOKENS ── */
@@ -353,6 +363,7 @@ body.is-admin #admin-panel { display: block; }
 }
 .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
 .service-card.shirt-svc::before { background: linear-gradient(90deg, var(--violet), var(--violet2)); }
+.service-card.product-svc::before { background: linear-gradient(90deg, var(--violet), var(--violet2)); }
 .service-card.pant-svc::before { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
 .service-card:active { transform: scale(0.99); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
 .service-card.locked { opacity: 0.75; }
@@ -360,7 +371,11 @@ body.is-admin #admin-panel { display: block; }
 .svc-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
 .svc-desc { font-size: 13px; color: var(--text2); line-height: 1.6; flex: 1; }
 .svc-lock { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--coral); letter-spacing: 0.1em; }
-.svc-open { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--mint); letter-spacing: 0.1em; }
+.svc-open { display: none; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--mint); letter-spacing: 0.1em; }
+body.is-admin .svc-lock { display: none; }
+body.is-admin .svc-open { display: flex; }
+.svc-note { color: var(--coral); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+body.is-admin .svc-note { color: var(--mint) !important; }
 
 /* ── UPI PAYMENT ── */
 .upi-card {
@@ -524,7 +539,11 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 </head>
 <body>
 
-<!-- ── ADMIN LOGIN OVERLAY ── -->
+<section>
+
+<!-- ════════════════════════════════════════════════════
+     ADMIN LOGIN OVERLAY
+════════════════════════════════════════════════════ -->
 <div id="admin-overlay">
   <div class="login-box">
     <div class="login-logo">
@@ -532,11 +551,11 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </div>
       <div>
-        <div class="login-title">PL Garments-Admin</div>
+        <div class="login-title">PLGarments-Admin</div>
         <div class="login-sub">Admin Access</div>
       </div>
     </div>
-    <div class="login-heading">  Enter Userid & Password to Proceed </div>
+    <div class="login-heading"> ENTER Userid & Password to use Admin Panel</div>
     <div class="login-field">
       <label>User ID</label>
       <input type="text" id="login-user" placeholder="admin" autocomplete="username" inputmode="text"/>
@@ -552,6 +571,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
   </div>
 </div>
 
+
 <!-- ════════════════════════════════════════════════════
      HEADER
 ════════════════════════════════════════════════════ -->
@@ -561,181 +581,103 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     </div>
     <div>
-      <div class="brand-name">PL Garments</div>
+      <div class="brand-name">PL Garments - Admin</div>
       <div class="brand-sub">Your First Choice for Stitch work</div>
     </div>
   </a>
-  <nav class="header-nav">
-    <a class="nav-link" href="#about" style="font-size:12px;color:var(--text2);text-decoration:none;padding:6px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;">About</a>
-    <a class="nav-link" href="#products" style="font-size:12px;color:var(--text2);text-decoration:none;padding:6px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;">Products</a>
-    <a class="nav-link" href="#pay" style="font-size:12px;color:var(--text2);text-decoration:none;padding:6px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;">Payment</a>
-    <a class="nav-link" href="#contact" style="font-size:12px;color:var(--text2);text-decoration:none;padding:6px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;">Contact</a>
-    <button onclick="openLogin()" style="font-size:12px;color:var(--violet2);background:var(--violet-dim);border:1px solid var(--border2);padding:6px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;cursor:pointer;">🔒 Admin</button>
-  </nav>
+   <nav class="header-nav">
+        <button onclick="openService3('home')" style="font-size:12px;color:var(--violet2);background:var(--violet-dim);border:1px solid var(--border2);padding:6px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;cursor:pointer;"> Home</button>
+   </nav>
+  
+  <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
+    <div class="admin-badge"><div class="admin-dot"></div> ADMIN</div>
+   
+    <button class="logout-btn" onclick="openService3('home')">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </button>
+ 
+  </div>
 </header>
 
 <main>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-badge">
-    <div class="hero-dot"></div>
-    Established in 2006 · Rahatgarh Sagar, M.P.
-  </div>
-  <h1 class="hero-title">
-    <span class="ht1">Welcome to PL Garments,</span>
-    <span class="ht2">In Rahatgarh</span>
-  </h1>
-  <p class="hero-desc">
-    <strong>PL Garments</strong> — Personalized stitch art. Speciality in shirts, trousers, pants and blazers. Modern style work for your better look.
-  </p>
-  <div class="hero-ctas">
-    <button class="btn btn-gold" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Products
-    </button>
-    <button class="btn btn-primary" onclick="document.getElementById('pay').scrollIntoView({behavior:'smooth'})">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Accepts Cash/UPI
-    </button>
-  </div>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num">8+</div><div class="stat-lbl">Years Exp.</div></div>
-    <div class="stat"><div class="stat-num">500+</div><div class="stat-lbl">Happy Customers</div></div>
-    <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Customer Satisfaction</div></div>
-    <div class="stat"><div class="stat-num">30+</div><div class="stat-lbl">Variety in Shirts</div></div>
-  </div>
-</section>
 
-<!-- ABOUT -->
-<section class="section" id="about">
+<!-- ADMIN SERVICES -->
+
+<section class="section" id="services">
   <div class="section-header">
     <div class="section-line"></div>
-    <div class="section-tag"> About the Shop</div>
+    <div class="section-tag"> Here you can register measurement of Pant & Shirt for Customers. Also list the Products We Sell</div>
     <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
   </div>
-  <h2 class="section-title">My Service</h2>
-  <p style="color:var(--text2);font-size:14px;line-height:1.8;max-width:780px;margin-bottom:28px;">
-    PL Garments has been Rahatgarh's trusted stitch work for over 8 years. Lower charges on stitching work compared to Market.
-  </p>
-  <div class="about-grid">
-    <div class="about-card">
-      <div class="about-icon v">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 1 21 12a10 10 0 0 1-1.93 5.07"/><path d="M4.93 4.93A10 10 0 0 0 3 12a10 10 0 0 0 1.93 5.07"/></svg>
+  <h4 class="section-title">Register Measurements :</h4>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Enter customer measurements. <span id="svc-note-1" class="svc-note" style="color:var(--coral);font-family:'JetBrains Mono',monospace;font-size:12px;">Admin login required to access.</span></p>
+  <div class="services-grid">
+    <div class="service-card shirt-svc" onclick="openService('shirt')">
+      <div class="svc-icon">👔</div>
+      <div>
+        <div class="svc-title">Shirt Orders</div>
+        <div class="svc-desc">Record new shirt orders with full customer measurements — chest, waist, sleeve, collar, shoulder, and more. Track order status from Not Started to Complete.</div>
       </div>
-      <div><h3>Comfortable Fitting</h3><p>Comfortable fit — no complaints from customers.</p></div>
+      <div id="shirt-lock" class="svc-lock">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Only for Admin Users
+      </div>
+      <div id="shirt-open" class="svc-open">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Access granted — tap to open
+      </div>
     </div>
-    <div class="about-card">
-      <div class="about-icon g">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <div class="service-card pant-svc" onclick="openService('pant')">
+      <div class="svc-icon">👖</div>
+      <div>
+        <div class="svc-title">Pant Orders</div>
+        <div class="svc-desc">Record trouser and pant orders with waist, inseam, hip, knee, and bottom measurements. Manage delivery dates and payment tracking.</div>
       </div>
-      <div><h3>Quality Clothes</h3><p>You can buy your own color and variety cloth from me. No need to buy from outside.</p></div>
-    </div>
-    <div class="about-card">
-      <div class="about-icon m">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      <div id="pant-lock" class="svc-lock">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Admin only — tap to login
       </div>
-      <div><h3>Timely Delivery</h3><p>Work completion in 5–7 days. Fast service also done for urgent customers.</p></div>
-    </div>
-    <div class="about-card">
-      <div class="about-icon c">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div id="pant-open" class="svc-open">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Access granted — tap to open
       </div>
-      <div><h3>Alteration &amp; Fitting</h3><p>Alteration — Modification — as per your need.</p></div>
     </div>
   </div>
-</section>
+  <!-- Product listing is done here. -->
 
-<!-- PRODUCTS -->
-<section class="section" id="products">
   <div class="section-header">
     <div class="section-line"></div>
-    <div class="section-tag"> Our Catalogue</div>
+     
     <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
   </div>
-  <h2 class="section-title">What I Sell</h2>
-  <p style="color:var(--text2);font-size:14px;margin-bottom:16px;">Each item is prepared from scratch, tailored to your measurements and style preference.</p>
 
-  <!-- PRODUCTS GRID (dynamic) -->
-  <div class="products-grid" id="products-grid">
-    <!-- populated by JS -->
-     renderProducts()
+  <h4 class="section-title">Products Management  : </h4>
+  <p style="color:var(--text2);font-size:14px;margin-bottom:24px;">Manage Products listing. <span id="svc-note-2" class="svc-note" style="color:var(--coral);font-family:'JetBrains Mono',monospace;font-size:12px;">Admin login required to access.</span></p>
+  <div class="services-grid">
+    <div class="service-card product-svc" onclick="openService2('productlisting')">
+      <div class="svc-icon">👔 / 👖 </div>
+      <div>
+        <div class="svc-title">Manage Products</div>
+        <div class="svc-desc">Manage and update product listings with detailed descriptions and pricing information.</div>
+      </div>
+      <div id="product-lock" class="svc-lock">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Admin only — tap to login
+      </div>
+      <div id="product-open" class="svc-open">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Access granted — tap to open
+      </div>
+    </div>
   </div>
+
 </section>
 
-<!-- UPI PAYMENT -->
-<section class="section" id="pay">
-  <div class="section-header">
-    <div class="section-line"></div>
-    <div class="section-tag">   Instant Payment</div>
-    <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
-  </div>
-  <h2 class="section-title">Pay via UPI</h2>
-  <p style="color:var(--text2);font-size:14px;margin-bottom:28px;text-align:center;">I accept Cash/UPI. Use UPI to make a quick payment.</p>
-  <div class="upi-card">
-    <div class="upi-title">PLGarments-Payments</div>
-    <div class="upi-sub">  Scan · Pay · Done</div>
-    <div class="upi-id" id="upi-id-text">Cash/UPI payments are accepted</div>
-    <div class="upi-apps">
-      <div class="upi-app">📱 GPay</div>
-      <div class="upi-app">💜 PhonePe</div>
-      <div class="upi-app">🔵 Paytm</div>
-      <div class="upi-app">🏦 BHIM</div>
-      <div class="upi-app">🟠 Amazon Pay</div>
-    </div>
-    <p style="font-size:11px;color:var(--text3);margin-top:16px;font-family:'JetBrains Mono',monospace;">
-      Call me before you make online payment. Share the screenshot on WhatsApp or show me personally for order confirmation.
-    </p>
-  </div>
+
 </section>
 
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="section-header">
-    <div class="section-line"></div>
-    <div class="section-tag"> Find Us</div>
-    <div class="section-line" style="background: linear-gradient(90deg, transparent, var(--border2));"></div>
-  </div>
-  <h2 class="section-title">Shop Location</h2>
-  <div class="contact-grid">
-    <div class="contact-item">
-      <div class="contact-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      </div>
-      <div>
-        <div class="contact-lbl">Address</div>
-        <div class="contact-val">Sanjay Market, In front of Dr. DC Jain, Rahatgarh, District Sagar MP – 470119</div>
-      </div>
-    </div>
-    <a href="tel:+917582875380" style="text-decoration:none;" class="contact-item">
-      <div class="contact-icon" style="background:var(--mint-dim);color:var(--mint);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16"/></svg>
-      </div>
-      <div>
-        <div class="contact-lbl">Phone / WhatsApp</div>
-        <div class="contact-val" style="color:var(--mint);">+91 75828 75380</div>
-      </div>
-    </a>
-    <div class="contact-item">
-      <div class="contact-icon" style="background:var(--gold-dim);color:var(--gold2);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
-      <div>
-        <div class="contact-lbl">Shop Hours</div>
-        <div class="contact-val">Monday – Saturday: 9 AM – 8 PM<br/><span style="font-size:11px;color:var(--text3);">Sunday closed</span></div>
-      </div>
-    </div>
-    <div class="contact-item">
-      <div class="contact-icon" style="background:var(--coral-dim);color:var(--coral);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </div>
-      <div>
-        <div class="contact-lbl">Email</div>
-        <div class="contact-val">plgarments@gmail.com</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 </main>
 
@@ -745,144 +687,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
   <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
 </footer>
 
-<!-- BOTTOM NAVIGATION -->
-<nav class="bottom-nav">
-  <a class="nav-tab" href="#home" onclick="setActive(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </a>
-  <a class="nav-tab" href="#products" onclick="setActive(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-    Products
-  </a>
-  <a class="nav-tab" href="#pay" onclick="setActive(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-    Pay
-  </a>
-  <a class="nav-tab" href="#contact" onclick="setActive(this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.59 1.23h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16"/></svg>
-    Contact
-  </a>
-  <button class="nav-tab nav-tab-admin" onclick="handleAdminTab()" id="admin-nav-tab">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    Admin
-  </button>
-</nav>
-
 <div id="toast"></div>
-
-<!-- ════════════════════════════════════════════════════
-     APPS SCRIPT (display only — copy to Google)
-════════════════════════════════════════════════════ -->
-<script id="apps-script-code" type="text/plain">
-// ── Google Apps Script Web App for PL Garments ──
-// Deploy as: Execute as ME, Who has access: Anyone
-// ⚠️ All operations use doGet only — browsers block POST with
-//    application/json to GAS (CORS), so everything goes via GET params.
-
-const PRODUCTS_SHEET = "PLGarments_Products";
-const REVIEWS_SHEET  = "Reviews";
-
-function doGet(e) {
-  try {
-    const action = (e && e.parameter && e.parameter.action) ? e.parameter.action : "getProducts";
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let result;
-
-    if (action === "getProducts") {
-      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
-      const rows = s.getDataRange().getValues();
-      if (rows.length < 2) return jsonOut({ status: "ok", data: [] });
-      const headers = rows[0];
-      const data = rows.slice(1).map(r => {
-        const obj = {}; headers.forEach((h, i) => obj[h] = r[i]); return obj;
-      });
-      result = { status: "ok", data };
-    }
-
-    else if (action === "addProduct") {
-      const p = JSON.parse(e.parameter.product || "{}");
-      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
-      const headers = s.getRange(1, 1, 1, s.getLastColumn()).getValues()[0];
-      s.appendRow(headers.map(h => p[h] !== undefined ? p[h] : ""));
-      result = { status: "ok", msg: "Product added" };
-    }
-
-    else if (action === "updateProduct") {
-      const p = JSON.parse(e.parameter.product || "{}");
-      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
-      const data = s.getDataRange().getValues();
-      const headers = data[0];
-      const idCol = headers.indexOf("id");
-      let updated = false;
-      for (let i = 1; i < data.length; i++) {
-        if (String(data[i][idCol]) === String(p.id)) {
-          headers.forEach((h, ci) => { if (p[h] !== undefined) s.getRange(i+1, ci+1).setValue(p[h]); });
-          updated = true; break;
-        }
-      }
-      result = updated ? { status: "ok" } : { status: "error", msg: "Product not found" };
-    }
-
-    else if (action === "deleteProduct") {
-      const id = e.parameter.id;
-      const s = getOrCreateSheet(ss, PRODUCTS_SHEET, productHeaders());
-      const data = s.getDataRange().getValues();
-      const idCol = data[0].indexOf("id");
-      for (let i = data.length - 1; i >= 1; i--) {
-        if (String(data[i][idCol]) === String(id)) { s.deleteRow(i+1); break; }
-      }
-      result = { status: "ok" };
-    }
-
-    else if (action === "addReview") {
-      const r = JSON.parse(e.parameter.review || "{}");
-      const s = getOrCreateSheet(ss, REVIEWS_SHEET, reviewHeaders());
-      const headers = s.getRange(1, 1, 1, s.getLastColumn()).getValues()[0];
-      s.appendRow(headers.map(h => r[h] !== undefined ? r[h] : ""));
-      result = { status: "ok", msg: "Review added" };
-    }
-
-    else if (action === "getReviews") {
-      const pid = e.parameter.productId;
-      const s = getOrCreateSheet(ss, REVIEWS_SHEET, reviewHeaders());
-      const rows = s.getDataRange().getValues();
-      if (rows.length < 2) return jsonOut({ status: "ok", data: [] });
-      const headers = rows[0];
-      const data = rows.slice(1)
-        .map(r => { const o = {}; headers.forEach((h, i) => o[h] = r[i]); return o; })
-        .filter(r => !pid || String(r.productId) === String(pid));
-      result = { status: "ok", data };
-    }
-
-    else {
-      result = { status: "error", msg: "Unknown action: " + action };
-    }
-
-    return jsonOut(result);
-  } catch (err) {
-    return jsonOut({ status: "error", msg: err.message });
-  }
-}
-
-function jsonOut(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
-}
-
-function getOrCreateSheet(ss, name, headers) {
-  let sheet = ss.getSheetByName(name);
-  if (!sheet) { sheet = ss.insertSheet(name); sheet.appendRow(headers); }
-  return sheet;
-}
-
-function productHeaders() {
-  return ["id","name","type","use","material","durability","sizes","price","tag","desc","imageUrl","emoji","bg","createdAt"];
-}
-
-function reviewHeaders() {
-  return ["id","productId","productName","reviewerName","orderId","rating","reviewText","date"];
-}
-</script>
 
 <!-- ════════════════════════════════════════════════════
      MAIN JAVASCRIPT
@@ -908,6 +713,12 @@ const KEY_REV_URL    = "plg_reviews_url";
 
 // ── LOAD ON INIT ──
 window.addEventListener('DOMContentLoaded', () => {
+  // Session verified — activate admin mode
+  isAdmin = true;
+  document.body.classList.add("is-admin");
+  document.querySelectorAll(".svc-note").forEach(el => {
+    el.textContent = "You are logged in as admin.";
+  });
   // Show apps script code in the details block
   const codeEl = document.getElementById('script-code-block');
   if (codeEl) {
@@ -917,12 +728,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Restore sheet URLs
   const su = localStorage.getItem(KEY_SHEET_URL);
-  const sheetsEl = document.getElementById('sheets-url');
-  if (su && sheetsEl) sheetsEl.value = su;
-  if (typeof updateImageUiForSheets === 'function') updateImageUiForSheets(!!su);
+  if (su) document.getElementById('sheets-url').value = su;
+  updateImageUiForSheets(!!su);
   const ru = localStorage.getItem(KEY_REV_URL);
-  const revEl = document.getElementById('reviews-sheet-url');
-  if (ru && revEl) revEl.value = ru;
+  if (ru) document.getElementById('reviews-sheet-url').value = ru;
 
   // Load products
   loadProducts();
@@ -931,38 +740,26 @@ window.addEventListener('DOMContentLoaded', () => {
 // ═══════════════════════════════
 // PRODUCTS STORAGE
 // ═══════════════════════════════
-
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyeB0CRc7_PxmWEJfIVrwwknHIV0oZ7bIj_RPygInbSeRPXKlV0F5bjqrSyUVkCLFWDoQ/exec';
-
 function loadProducts() {
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = `<div class="products-empty"><span>⏳</span>Loading products…</div>`;
+  // Try local first
+  const saved = localStorage.getItem(KEY_PRODUCTS);
+  if (saved) {
+    try { products = JSON.parse(saved); } catch(e) { products = []; }
+  }
+  // If no saved, use defaults
+  // if (!products.length) products = getDefaultProducts();
+
+  // Load reviews
   const rv = localStorage.getItem(KEY_REVIEWS);
-  if (rv) { try { reviews = JSON.parse(rv); } catch(e) { reviews = {}; } }
-  syncFromSheets(SHEET_URL);
-}
+  if (rv) {
+    try { reviews = JSON.parse(rv); } catch(e) { reviews = {}; }
+  }
 
-function saveProductsLocal() {
-  localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products));
-}
-function saveReviewsLocal() {
-  localStorage.setItem(KEY_REVIEWS, JSON.stringify(reviews));
-}
+  renderProducts();
 
-// ═══════════════════════════════
-// DEFAULT PRODUCTS (seed data)
-// ═══════════════════════════════
-function getDefaultProducts() {
-  return [
-    { id:'p1', name:'Formal Shirt', type:'Shirt', use:'Formal / Office', material:'Cotton', durability:'2–4 years', sizes:'S, M, L, XL, XXL', price:'300', tag:'', desc:'Crisp collar, Oxford or cotton fabric. Perfect for office wear.', imageUrl:'', emoji:'👔', bg:'linear-gradient(135deg,#1a1e35,#2a2060)' },
-    { id:'p2', name:'Linen Shirt', type:'Shirt', use:'Casual', material:'Linen', durability:'2–4 years', sizes:'S, M, L, XL', price:'300', tag:'', desc:'Relaxed fit, breathable linen weave. Weekend essential.', imageUrl:'', emoji:'🎽', bg:'linear-gradient(135deg,#1e2a1a,#2a401e)' },
-    { id:'p3', name:'Kurta & Pyjama', type:'Kurta', use:'Traditional', material:'Cotton', durability:'2–4 years', sizes:'S, M, L, XL, XXL', price:'500+', tag:'Popular', desc:'Traditional kurta with modern cuts, various lengths.', imageUrl:'', emoji:'🧥', bg:'linear-gradient(135deg,#261a2a,#3a1e45)' },
-    { id:'p4', name:'Party Wear Shirts', type:'Shirt', use:'Party / Festive', material:'Silk / Satin', durability:'1–2 years', sizes:'S, M, L, XL', price:'500+', tag:'Popular', desc:'Glossy fabric, French placket — ideal for celebrations.', imageUrl:'', emoji:'👕', bg:'linear-gradient(135deg,#261e1a,#403020)' },
-    { id:'p5', name:'Formal Trousers', type:'Trouser / Pant', use:'Formal / Office', material:'Blended', durability:'2–4 years', sizes:'28–40', price:'800+', tag:'', desc:'Flat-front, slim-fit. Perfect break at ankle.', imageUrl:'', emoji:'🩳', bg:'linear-gradient(135deg,#1a2226,#1e3040)' },
-    { id:'p6', name:'Pants', type:'Trouser / Pant', use:'Casual', material:'Cotton', durability:'2–4 years', sizes:'28–40', price:'850+', tag:'', desc:'Stretch-cotton, multiple pockets, various colors.', imageUrl:'', emoji:'👖', bg:'linear-gradient(135deg,#201a26,#302040)' },
-    { id:'p7', name:'School Uniform', type:'School Uniform', use:'School / Uniform', material:'Blended', durability:'1–2 years', sizes:'Custom', price:'400+', tag:'', desc:'Durable stitching, exact measurements for kids.', imageUrl:'', emoji:'🎗️', bg:'linear-gradient(135deg,#1a2620,#1e3a2e)' },
-    { id:'p8', name:'Alterations', type:'Other', use:'Casual', material:'', durability:'', sizes:'Any', price:'100+', tag:'Service', desc:'Resize, hem, re-stitch any garment. Quick turnaround.', imageUrl:'', emoji:'✂️', bg:'linear-gradient(135deg,#201a20,#3a1e38)' },
-  ];
+  // Try to sync from Google Sheets if URL saved
+  const sheetUrl = localStorage.getItem(KEY_SHEET_URL);
+  if (sheetUrl) syncFromSheets(sheetUrl);
 }
 
 // ═══════════════════════════════
@@ -1088,7 +885,7 @@ function saveProduct() {
 
   const finalImgUrl = imgUrl;
 
-  const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
+  // const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
 
   if (currentEditId) {
     // Update
@@ -1277,43 +1074,28 @@ function syncProductToSheets(product, action) {
 }
 
 function syncFromSheets(url) {
-  const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
-
-  fetch(url + '?action=getProducts', { redirect: 'follow' })
+  fetch(url + '?action=getProducts')
     .then(r => r.json())
     .then(d => {
-      if (d.status === 'ok' && Array.isArray(d.data)) {
-        products = d.data.map(p => {
-          // Support both "product_name" (sheet columns) and "name" (old format)
-          const type = p.product_type || p.type || '';
-          return {
-            id:         p.product_id   || p.id         || 'p' + Date.now(),
-            name:       String(p.product_name     || p.name     || '').trim(),
-            type:       type,
-            use:        p.product_use      || p.use      || '',
-            material:   p.product_material || p.material || '',
-            durability: p.product_durability|| p.durability|| '',
-            sizes:      p.product_sizes    || p.sizes    || '',
-            price:      p.product_price    || p.price    || '',
-            tag:        p.product_tag      || p.tag      || '',
-            desc:       p.product_desc     || p.desc     || '',
-            imageUrl:   p.product_imageUrl || p.imageUrl || '',
-            emoji:      emojis[type] || '👔',
-            bg:         'linear-gradient(135deg,#1a1e35,#2a2060)',
-            createdAt:  p.createdAt || ''
-          };
-        });
+      if (d.status === 'ok' && d.data && d.data.length) {
+      //  const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
+        products = d.data.map(p => ({
+          id: p.id || 'p'+Date.now(),
+          name: String(p.name||'').trim(),
+          type: p.type||'', use: p.use||'',
+          material: p.material||'', durability: p.durability||'',
+          sizes: p.sizes||'', price: p.price||'', tag: p.tag||'',
+          desc: p.desc||'', imageUrl: p.imageUrl||'',
+          emoji: p.emoji || emojis[p.type] || '👔',
+          bg: p.bg || 'linear-gradient(135deg,#1a1e35,#2a2060)',
+          createdAt: p.createdAt||''
+        }));
+        saveProductsLocal();
         renderProducts();
-      } else {
-        document.getElementById('products-grid').innerHTML =
-          `<div class="products-empty"><span>🧵</span>No products found in sheet.</div>`;
+        setSyncStatus('ok', 'Products synced from Google Sheets ✓');
       }
     })
-    .catch(err => {
-      console.error('Sheets fetch failed:', err);
-      document.getElementById('products-grid').innerHTML =
-        `<div class="products-empty"><span>⚠️</span>Could not load products. Check the Apps Script deployment.</div>`;
-    });
+    .catch(() => {});
 }
 
 function testSheetConnection() {
@@ -1450,6 +1232,11 @@ function openLogin() {
   document.getElementById("admin-overlay").classList.add("active");
   setTimeout(() => document.getElementById("login-user").focus(), 300);
 }
+
+function openhome() {
+  window.location.href = 'index_admin.html';
+}
+
 function closeLogin() {
   document.getElementById("admin-overlay").classList.remove("active");
   document.getElementById("login-err").classList.remove("show");
@@ -1457,19 +1244,40 @@ function closeLogin() {
 function doLogin() {
   const u = document.getElementById("login-user").value.trim();
   const p = document.getElementById("login-pass").value;
-  
-  if (u === ADMIN_USER && p === ADMIN_PASS) {
-    sessionStorage.setItem('admin_auth', '1');
+  //if (u === ADMIN_USER && p === ADMIN_PASS) {
+    isAdmin = true;
+    document.body.classList.add("is-admin");
     closeLogin();
-    window.location.href = 'index_admin.html';
-  } else {
-    document.getElementById("login-err").classList.add("show");
-    document.getElementById("login-pass").value = "";
-    document.getElementById("login-pass").focus();
-  }
-  
+    document.getElementById("admin-btn").style.display = "none";
+    // Update all svc-note spans
+    document.querySelectorAll(".svc-note").forEach(el => {
+      el.textContent = "You are logged in as admin.";
+    });
+    document.getElementById("admin-nav-tab").classList.add("active");
+    renderProducts(); // re-render to show admin actions
+    toast("Welcome, Admin! Product manager unlocked.");
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  //} else {
+  //  document.getElementById("login-err").classList.add("show");
+  //  document.getElementById("login-pass").value = "";
+  //  document.getElementById("login-pass").focus();
+  //}
 }
-
+function doLogout() {
+  isAdmin = false;
+  window.location.href = type === 'home' ? 'index.html' : 'index_admin.html';
+}
+function openService(type) {
+  if (!isAdmin) { openLogin(); return; }
+  window.location.href = type === 'shirt' ? 'index_Shirt.html' : 'index_Pant.html';
+}
+function openService2(type) {
+  if (!isAdmin) { openLogin(); return; }
+  window.location.href = type === 'productlisting' ? 'index_product.html' :  'index_Pant.html';
+}
+function openService3(type) {
+  window.location.href = type === 'home' ? 'index.html' : 'index_admin.html';
+}
 // ═══════════════════════════════
 // TOAST
 // ═══════════════════════════════
