@@ -455,8 +455,8 @@ select option { background: var(--surface2); color: var(--text); }
       </svg>
     </div>
     <div>
-      <div class="brand-name">PL Garments - Shirts</div>
-      <div class="brand-sub">Your First Choice for Stitch work</div>
+      <div class="brand-name">पीएल गारमेंट्स - शर्ट (Admin)</div>
+      <div class="brand-sub"></div>
     </div>
     <span class="conn-pill disconnected" id="conn-status">
       <span class="conn-dot"></span>
@@ -464,18 +464,16 @@ select option { background: var(--surface2); color: var(--text); }
     </span>
   </div>
   <div class="header-actions">
-    <button class="btn btn-ghost btn-sm hide-sm" onclick="loadRecords()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      Refresh
-    </button>
-    <nav class="header-nav">
+    
+    <nav class="header-nav" style="display:flex;gap:8px;align-items:center;">
         <button onclick="openService3('home')" style="font-size:12px;color:var(--violet2);background:var(--violet-dim);border:1px solid var(--border2);padding:6px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;cursor:pointer;"> HOME</button>
+        <button onclick="backupSheet()" id="backup-btn" style="font-size:12px;color:#0d0f1a;background:linear-gradient(135deg,var(--gold2),#e8a800);border:none;padding:6px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;cursor:pointer;font-weight:700;box-shadow:0 2px 10px var(--gold-glow);display:inline-flex;align-items:center;gap:6px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          BACKUP
+        </button>
     </nav>
 
-    <button class="btn btn-ghost btn-sm" onclick="showConfig()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-      <span class="hide-sm">Settings</span>
-    </button>
+    
     <button class="btn btn-primary btn-sm hide-sm" onclick="scrollToForm(); focusForm()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       New Order
@@ -485,7 +483,7 @@ select option { background: var(--surface2); color: var(--text); }
 </header>
 
 <main>
-
+  
   <!-- Config -->
   <div class="config-card" id="config-banner">
     <div class="config-icon">
@@ -496,7 +494,7 @@ select option { background: var(--surface2); color: var(--text); }
       <div class="config-sub">Paste your Apps Script Web App URL to get started</div>
       <div class="url-row">
         <div class="url-iw">
-          <input id="url-input" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/.../exec"/>
+          <input id="url-input" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/AKfycbzRiAtdMRdVtEpRgLCX--PtPvv3uWjYOOstL6MWZ2Snf0xmDqcslg6K0zonrs1cGX5FoA/exec"/>
         </div>
         <button class="btn btn-primary" onclick="saveUrl()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>
@@ -506,6 +504,7 @@ select option { background: var(--surface2); color: var(--text); }
       </div>
     </div>
   </div>
+  
 
   <!-- Form Panel -->
   <div class="panel" id="form-panel">
@@ -514,8 +513,8 @@ select option { background: var(--surface2); color: var(--text); }
         <span class="pt-icon">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
         </span>
-        Measurement - Shirt
-        <span class="panel-badge" id="form-mode-badge">NEW</span>
+         माप : शर्ट
+        <span class="panel-badge" id="form-mode-badge">नई माप दर्ज़ करे </span>
       </div>
       <div id="editing-indicator" style="display:none; align-items:center; gap:10px;">
         <span class="edit-ind">Editing</span>
@@ -527,37 +526,44 @@ select option { background: var(--surface2); color: var(--text); }
 
       <input type="hidden" id="f-id"/>
         <div class="form-group span-2">
-          <label>Customer Name <span class="req">*</span></label>
-          <input id="f-name" type="text" placeholder="e.g. Bharat Rohit" autocomplete="name"/>
+          <label>ग्राहक का नाम: <span class="req">*</span></label>
+          <input id="f-name" type="text" placeholder="e.g Bharat Rohit" autocomplete="name"/>
         </div>
         <div class="form-group span-2">
-          <label>Address</label>
+          <label>पता:</label>
           <input id="f-addr" type="text" placeholder="Street / Area / Colony"/>
         </div>
 
   <div class="form-group span-2">
-          <label>Mobile</label>
+          <label>मोबाइल:</label>
           <input id="f-mobile" type="number" placeholder="987654321"/>
         </div>
 
         <div class="form-group">
-          <label>Date of Order<span class="req">*</span></label>
+          <label>कपड़ा जमा करने की तिथि:<span class="req">*</span></label>
           <input id="f-reg-date" type="date"/>
         </div>
         <div class="form-group">
-          <label>Date of Completion<span class="req">*</span></label>
+          <label>कपड़ा पूरा करने की तिथि:<span class="req">*</span></label>
           <input id="f-del-date" type="date"/>
         </div>
         <div class="form-group">
-          <label>Status</label>
+          <label>कार्य स्थिति:</label>
           <select id="f-status">
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Complete">Complete</option>
+            <option value="Not Started">कार्य शुरू नहीं हुआ</option>
+            <option value="In Progress">कार्य प्रगति पर है</option>
+            <option value="Complete">कार्य पूरा हो चुका है</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>शर्ट का प्रकार: </label>
+          <select id="f-full-half">
+            <option value="Full">Full</option>
+            <option value="Half">Half</option>
           </select>
         </div>
 														
-        <div class="sec-label">Shirt Measurements <span style="font-size:7px;opacity:.40;margin-left:4px;letter-spacing:.1em">INCHES</span></div>
+        <div class="sec-label">शर्ट का माप <span style="font-size:5px;opacity:.40;margin-left:4px;letter-spacing:.1em">इंच में</span></div>
         <div class="form-group">
           <label>Shirt Length</label>
           <input id="f-shirt-len" type="number" step="0.5" min="0" inputmode="decimal" placeholder="28.5"/>
@@ -584,8 +590,8 @@ select option { background: var(--surface2); color: var(--text); }
         </div>
 
    	<div class="form-group">
-          <label>Pas</label>
-          <input id="f-pas" type="number" step="0.5" min="0" inputmode="decimal" placeholder="14"/>
+          <label>Pas या मोहरी</label>
+          <input id="f-pas" type="number" step="0.5" min="0" inputmode="decimal" placeholder="Half शर्ट :के लिए मोहरी / Full शर्ट :के लिए PAS दर्ज़ करे"/>
         </div>
 
    	<div class="form-group">
@@ -598,13 +604,22 @@ select option { background: var(--surface2); color: var(--text); }
           <input id="f-cuf" type="number" step="0.5" min="0" inputmode="decimal" placeholder="10"/>
         </div>
 
+        <div class="form-group">
+          <label>शर्टों की संख्या:</label>
+          <input id="f-no-of-shirts" type="number" step="1" min="1" inputmode="decimal" placeholder="1"/>
+        </div>
+
 	<div class="form-group">
-          <label>Deposit</label>
+          <label>अग्रिम जमा राशि:</label>
           <input id="f-deposit" type="number" step="10" min="10" inputmode="decimal" placeholder="50"/>
         </div>
 	<div class="form-group">
-          <label>Total</label>
+          <label>कुल राशि:</label>
           <input id="f-total" type="number" step="10" min="150" inputmode="decimal" placeholder="150"/>
+        </div>
+  <div class="form-group">
+          <label>टिप्पणी</label>
+          <input id="f-comment" type="text" placeholder="ऑर्डर के बारे में कोई भी टिप्पणी दर्ज करें..."/>
         </div>
 
 
@@ -641,11 +656,12 @@ select option { background: var(--surface2); color: var(--text); }
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="search" id="search-box" placeholder="Search by name or address or Mobile…" oninput="filterRecords()" autocomplete="off"/>
         </div>
+        
         <select class="fsel" id="status-filter" onchange="filterRecords()">
-          <option value="">All statuses</option>
-          <option value="Not Started">Not Started</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Complete">Complete</option>
+          <option value="">कार्य स्थिति के अनुसार खोजें:</option>
+          <option value="Not Started">कार्य शुरू नहीं हुआ</option>
+          <option value="In Progress">कार्य प्रगति पर है</option>
+          <option value="Complete">कार्य पूरा हो चुका है</option>
         </select>
         <span class="flabel" id="filter-label"></span>
       </div>
@@ -664,7 +680,7 @@ select option { background: var(--surface2); color: var(--text); }
 <!-- FOOTER -->
 <footer>
   <div>© 2026 PL Garments — Your First Choice for Stitch work, Rahatgarh &nbsp;·&nbsp; This page is Crafted with ❤️ by Umesh Gupta. &nbsp;&nbsp; All rights reserved</div>
-  <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
+  <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments4@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
 </footer>
 
 
@@ -674,30 +690,32 @@ let allRecords = [];
 let editingId = null;
 		
 const FIELDS = [
-  { id:"f-name",      key:"Customer Name" },
-  { id:"f-addr",     key:"Address" },
-  { id:"f-mobile",     key:"Mobile" },
-  { id:"f-reg-date",  key:"Order_Date" },
-  { id:"f-del-date",  key:"Delivery_Date" },
-  { id:"f-status",    key:"Status" },
-  { id:"f-shirt-len", key:"Shirt_Length" },
-  { id:"f-chest",     key:"Chest" },
-  { id:"f-waist",     key:"Waist" },
-  { id:"f-hip",       key:"Hip" },
-  { id:"f-sleeve",    key:"Sleeve" },
-  { id:"f-shoulder",  key:"Shoulder" },
-  { id:"f-pas" ,      key:"Pas" },
-  { id:"f-collar",    key:"Collar" },
-  { id:"f-cuf",       key:"Cuf" },
-  { id:"f-deposit",   key:"Deposit" },
-  { id:"f-total",     key:"Total" },
-
-
-
+  { id:"f-name",          key:"Customer Name" },
+  { id:"f-addr",          key:"Address" },
+  { id:"f-mobile",        key:"Mobile" },
+  { id:"f-reg-date",      key:"Order_Date" },
+  { id:"f-del-date",      key:"Delivery_Date" },
+  { id:"f-status",        key:"Status" },
+  { id:"f-full-half",     key:"Full_or_Half_Shirt" },
+  { id:"f-no-of-shirts",  key:"No_of_Shirts" },
+  { id:"f-shirt-len",     key:"Shirt_Length" },
+  { id:"f-chest",         key:"Chest" },
+  { id:"f-waist",         key:"Waist" },
+  { id:"f-hip",           key:"Hip" },
+  { id:"f-sleeve",        key:"Sleeve" },
+  { id:"f-shoulder",      key:"Shoulder" },
+  { id:"f-pas" ,          key:"Pas_or_Mohari" },
+  { id:"f-collar",        key:"Collar" },
+  { id:"f-cuf",           key:"Cuf" },
+  { id:"f-deposit",       key:"Deposit" },
+  { id:"f-total",         key:"Total" },
+  { id:"f-comment",       key:"Comment" }
 ];
 
 window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("f-reg-date").value = todayStr();
+  API_URL = 'https://script.google.com/macros/s/AKfycbzRiAtdMRdVtEpRgLCX--PtPvv3uWjYOOstL6MWZ2Snf0xmDqcslg6K0zonrs1cGX5FoA/exec';
+
   if (API_URL) {
     document.getElementById("url-input").value = API_URL;
     document.getElementById("config-banner").style.display = "none";
@@ -716,7 +734,7 @@ function showConfig() {
 function setConnected(yes) {
   const el = document.getElementById("conn-status");
   el.className = "conn-pill " + (yes ? "connected" : "disconnected");
-  document.getElementById("conn-text").textContent = yes ? "Connected" : "Not connected";
+  document.getElementById("conn-text").textContent = yes ? "Connected" : "Not Connected";
 }
 
 function openService3(type) {
@@ -726,7 +744,9 @@ function openService3(type) {
 function saveUrl() {
   const val = document.getElementById("url-input").value.trim();
   if (!val.startsWith("https://script.google.com")) { toast("Please enter a valid Apps Script URL", "error"); return; }
-  API_URL = val;
+  //API_URL = val;
+  API_URL = 'https://script.google.com/macros/s/AKfycbzRiAtdMRdVtEpRgLCX--PtPvv3uWjYOOstL6MWZ2Snf0xmDqcslg6K0zonrs1cGX5FoA/exec';
+
   localStorage.setItem("tailor_api_url", API_URL);
   toast("Connecting…");
   setConnected(true);
@@ -735,7 +755,9 @@ function saveUrl() {
 }
 
 async function testConnection() {
+  
   const val = document.getElementById("url-input").value.trim();
+  //const val = "https://script.google.com/macros/s/AKfycbzRiAtdMRdVtEpRgLCX--PtPvv3uWjYOOstL6MWZ2Snf0xmDqcslg6K0zonrs1cGX5FoA/exec";
   if (!val) { toast("Enter a URL first", "error"); return; }
   showLoader("Testing connection…");
   try {
@@ -772,6 +794,16 @@ async function loadRecords() {
 async function handleSubmit() {
   const rec = getFormData();
   if (!rec["Customer Name"]) { toast("Customer name is required", "error"); return; }
+
+  // Detect status change to Complete for SMS trigger
+  let prevStatus = null;
+  if (editingId) {
+    const existing = allRecords.find(r => String(r["ID"]) === String(editingId));
+    if (existing) prevStatus = (existing["Status"] || "").trim().toLowerCase();
+  }
+  const newStatus = (rec["Status"] || "").trim().toLowerCase();
+  const statusBecameComplete = newStatus === "complete" && prevStatus !== "complete";
+
   showLoader(editingId ? "Updating order…" : "Saving order…");
   try {
     const payload = editingId ? { id: editingId, ...rec } : rec;
@@ -779,6 +811,12 @@ async function handleSubmit() {
     if (!data) return;
     if (data.error) { toast(data.error, "error"); return; }
     toast(editingId ? "Order updated!" : "Order saved!");
+
+    // Send SMS if status just became Complete
+    if (statusBecameComplete && rec["Mobile"]) {
+      await sendCompletionSMS(rec["Mobile"], rec["Customer Name"]);
+    }
+
     resetForm();
     await loadRecords();
   } catch(e) { toast("Error: " + e.message, "error"); }
@@ -867,22 +905,22 @@ function renderCards(records) {
     const isEdit   = String(editingId) === String(id);
     const addr     = [r["Address"]].filter(Boolean).join(", ");
     const meas     = [
-      { l:"Shirt Len", v:r["Shirt_Length"] },
-      { l:"Chest",     v:r["Chest"] },
-      { l:"Waist",     v:r["Waist"] },
-      { l:"Hip",       v:r["Hip"] },
-      { l:"Sleeve",    v:r["Sleeve"] },
-      { l:"Shoulder",  v:r["Shoulder"] },
-      { l:"Pas",       v:r["Pas"] },
-      { l:"Collar",    v:r["Collar"] },
-      { l:"Cuf",       v:r["Cuf"] },
-      { l:"Deposit",   v:r["Deposit"] },
-      { l:"Total",     v:r["Total"] },
-      { l:"Mobile",     v:r["Mobile"] },
-      { l:"Adress",     v:r["Adress"] },
-
-
-
+      { l:"Full/Half",      v:r["Full_or_Half_Shirt"] },
+      { l:"No of Shirts",   v:r["No_of_Shirts"] },
+      { l:"Shirt Len",      v:r["Shirt_Length"] },
+      { l:"Chest",          v:r["Chest"] },
+      { l:"Waist",          v:r["Waist"] },
+      { l:"Hip",            v:r["Hip"] },
+      { l:"Sleeve",         v:r["Sleeve"] },
+      { l:"Shoulder",       v:r["Shoulder"] },
+      { l:"Pas/Mohari",     v:r["Pas_or_Mohari"] },
+      { l:"Collar",         v:r["Collar"] },
+      { l:"Cuf",            v:r["Cuf"] },
+      { l:"Deposit",        v:r["Deposit"] },
+      { l:"Total",          v:r["Total"] },
+      { l:"Mobile",         v:r["Mobile"] },
+ 
+      { l:"Comment",        v:r["Comment"] },
     ];
     const hasMeas = meas.some(m => m.v);
 
@@ -926,7 +964,7 @@ function filterRecords() {
   const q  = document.getElementById("search-box").value.toLowerCase();
   const sf = document.getElementById("status-filter").value;
   const filtered = allRecords.filter(r => {
-    const matchText   = !q || (r["Customer Name"]||"").toLowerCase().includes(q) || (r["Adress"]||"").toLowerCase().includes(q) || (r["Mobile"]||"").toLowerCase().includes(q);
+    const matchText   = !q || (r["Customer Name"]||"").toLowerCase().includes(q) || (r["Address"]||"").toLowerCase().includes(q) || (r["Mobile"]||"").toLowerCase().includes(q);
     const matchStatus = !sf || (r["Status"]||"").trim().toLowerCase() === sf.trim().toLowerCase();
     return matchText && matchStatus;
   });
@@ -936,6 +974,42 @@ function filterRecords() {
 
 function showLoader(t="Loading…") { document.getElementById("loader-text").textContent=t; document.getElementById("loader").classList.add("active"); }
 function hideLoader() { document.getElementById("loader").classList.remove("active"); }
+
+// ── BACKUP: triggers Apps Script to email a sheet backup to your Gmail ──
+async function backupSheet() {
+  if (!API_URL) { toast("Please connect your Google Sheet first", "error"); return; }
+  const BACKUP_EMAIL = "umesh112ec@gmail.com"; // ← your Gmail address
+  const btn = document.getElementById("backup-btn");
+  btn.disabled = true;
+  btn.style.opacity = "0.6";
+  showLoader("Preparing backup…");
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({ action: "backup", data: { email: BACKUP_EMAIL } })
+    });
+    const data = await res.json();
+    if (data && data.error) { toast("Backup failed: " + data.error, "error"); }
+    else { toast("✅ Backup emailed to " + BACKUP_EMAIL); }
+  } catch(e) { toast("Backup error: " + e.message, "error"); }
+  finally { hideLoader(); btn.disabled = false; btn.style.opacity = "1"; }
+}
+
+// ── WhatsApp: open WhatsApp with pre-filled message when status changes to Complete ──
+// Free, no API key needed, works instantly on mobile & desktop.
+
+function sendCompletionSMS(mobileNumber, customerName) {
+  if (!mobileNumber) return;
+  const mobile = String(mobileNumber).replace(/\D/g, "").slice(-10); // keep last 10 digits
+  if (mobile.length !== 10) { console.warn("Invalid mobile for WhatsApp:", mobileNumber); return; }
+
+  const message = encodeURIComponent(
+    `नमस्ते ${customerName || "ग्राहक"} जी 🙏,\n\nआपके कपड़े तैयार हो गए हैं। कृपया PL Garments, Rahatgarh से अपना Shirts लेकर जाएं।\n\nधन्यवाद! 😊\n— PL Garments, Rahatgarh`
+  );
+
+  window.open(`https://wa.me/91${mobile}?text=${message}`, "_blank");
+  toast("📱 WhatsApp opened for " + mobile);
+}
 
 function toast(msg, type="success") {
   const el = document.createElement("div");
