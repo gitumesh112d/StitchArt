@@ -474,6 +474,86 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 }
 .star-btn.active { filter: none; }
 
+/* ── PRODUCT DETAIL OVERLAY ── */
+#product-detail-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(13,15,26,0.96); backdrop-filter: blur(20px);
+  display: none; align-items: flex-end; justify-content: center;
+  padding: 20px;
+}
+#product-detail-overlay.active { display: flex; }
+.product-detail-sheet {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: var(--radius); width: 100%; max-width: 500px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  animation: fadeUp 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  max-height: 90vh; overflow-y: auto;
+}
+.pd-image-wrap {
+  width: 100%; height: 220px; position: relative; overflow: hidden;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.pd-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pd-image-placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  font-size: 72px;
+}
+.pd-close-btn {
+  position: absolute; top: 12px; right: 12px; z-index: 10;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(13,15,26,0.72); backdrop-filter: blur(8px);
+  border: 1px solid var(--border2); color: var(--text2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 18px; line-height: 1;
+}
+.pd-body { padding: 20px; }
+.pd-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.pd-desc { font-size: 14px; color: var(--text2); line-height: 1.65; margin-bottom: 14px; }
+.pd-meta-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;
+}
+.pd-meta-item {
+  background: var(--surface3); border: 1px solid var(--border); border-radius: 10px;
+  padding: 10px 12px;
+}
+.pd-meta-lbl { font-size: 9px; color: var(--text3); letter-spacing: 0.14em; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 3px; }
+.pd-meta-val { font-size: 13px; font-weight: 600; color: var(--text); }
+.pd-price-row { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.pd-price {
+  font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700;
+  color: var(--gold2); background: var(--gold-dim); border: 1px solid rgba(245,200,66,0.25);
+  padding: 6px 16px; border-radius: 20px;
+}
+.pd-reviews-section { margin-top: 4px; }
+.pd-reviews-title {
+  font-size: 12px; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px;
+}
+.pd-action-row { padding: 0 20px 20px; }
+.btn-write-review-detail {
+  width: 100%; padding: 14px; border-radius: var(--radius-sm);
+  background: var(--mint-dim); color: var(--mint);
+  border: 1px solid rgba(67,232,176,0.3); font-size: 13px;
+  font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.06em;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all 0.2s; -webkit-tap-highlight-color: transparent; min-height: 50px;
+  text-transform: uppercase;
+}
+.btn-write-review-detail:active { background: rgba(67,232,176,0.22); transform: scale(0.98); }
+
+/* ── Make product thumb clickable ── */
+.product-thumb { cursor: pointer; }
+.product-thumb:hover::after {
+  background: linear-gradient(180deg, rgba(139,120,255,0.18) 0%, rgba(0,0,0,0.4) 100%);
+}
+.thumb-zoom-hint {
+  position: absolute; bottom: 7px; right: 8px; z-index: 2;
+  background: rgba(13,15,26,0.65); backdrop-filter: blur(4px);
+  border-radius: 6px; padding: 3px 7px;
+  font-size: 9px; color: var(--text2); font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em; pointer-events: none;
+}
+
 /* Reviews list on product card */
 .product-reviews { padding: 0 14px 12px; }
 .review-item {
@@ -731,7 +811,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
       </div>
       <div>
         <div class="contact-lbl">Email</div>
-        <div class="contact-val">plgarments@gmail.com</div>
+        <div class="contact-val">plgarments4@gmail.com</div>
       </div>
     </div>
   </div>
@@ -742,7 +822,7 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
 <!-- FOOTER -->
 <footer>
   <div>© 2026 PL Garments — Your First Choice for Stitch work, Rahatgarh &nbsp;·&nbsp; This page is Crafted with ❤️ by Umesh Gupta. &nbsp;&nbsp; All rights reserved</div>
-  <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
+  <div style="margin-top:8px;font-size:10px;opacity:0.5;">plgarments4@gmail.com &nbsp;·&nbsp; +91 75828 75380</div>
 </footer>
 
 <!-- BOTTOM NAVIGATION -->
@@ -768,6 +848,78 @@ body.is-admin .nav-tab-admin { color: var(--mint); }
     Admin
   </button>
 </nav>
+
+<!-- PRODUCT DETAIL OVERLAY -->
+<div id="product-detail-overlay">
+  <div class="product-detail-sheet">
+    <div class="pd-image-wrap" id="pd-image-wrap">
+      <button class="pd-close-btn" onclick="closeProductDetail()">✕</button>
+    </div>
+    <div class="pd-body">
+      <div class="pd-name" id="pd-name"></div>
+      <div class="pd-price-row">
+        <span class="pd-price" id="pd-price"></span>
+        <span id="pd-tag"></span>
+        <span id="pd-rating"></span>
+      </div>
+      <div class="pd-desc" id="pd-desc"></div>
+      <div class="pd-meta-grid" id="pd-meta-grid"></div>
+      <div class="pd-reviews-section">
+        <div class="pd-reviews-title">Customer Reviews</div>
+        <div id="pd-reviews-list"></div>
+      </div>
+    </div>
+    <div class="pd-action-row">
+      <button class="btn-write-review-detail" id="pd-review-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        कृप्या अपनी प्रतिक्रिया साझा करे
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div id="review-overlay">
+  <div class="review-sheet">
+    <div class="review-sheet-header">
+      <div class="review-sheet-title">Write a Review</div>
+      <div id="review-product-name" style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;"></div>
+      <button class="review-close" onclick="closeReview()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="form-field" style="margin-bottom:12px;">
+      <label>Your Name</label>
+      <input type="text" id="review-name" placeholder="Enter your name" autocomplete="name"/>
+    </div>
+    <div class="form-field" style="margin-bottom:12px;">
+      <label>Order ID (optional)</label>
+      <input type="text" id="review-orderid" placeholder="e.g. ORD-12345"/>
+    </div>
+    <div style="margin-bottom:12px;">
+      <div style="font-size:10px;color:var(--text3);letter-spacing:.14em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:6px;">Rating</div>
+      <div class="star-row">
+        <button class="star-btn" data-v="1" onclick="setRating(1)">⭐</button>
+        <button class="star-btn" data-v="2" onclick="setRating(2)">⭐</button>
+        <button class="star-btn" data-v="3" onclick="setRating(3)">⭐</button>
+        <button class="star-btn" data-v="4" onclick="setRating(4)">⭐</button>
+        <button class="star-btn" data-v="5" onclick="setRating(5)">⭐</button>
+      </div>
+    </div>
+    <div class="form-field" style="margin-bottom:16px;">
+      <label>Your Review</label>
+      <textarea id="review-text" placeholder="Share your experience…" rows="3"></textarea>
+    </div>
+    <div id="review-sync-status" class="sync-status" style="display:none;">
+      <div class="sync-dot loading" id="review-sync-dot"></div>
+      <span id="review-sync-msg"></span>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:4px;">
+      <button class="btn btn-ghost" style="flex:1;" onclick="closeReview()">Cancel</button>
+      <button class="btn btn-mint" style="flex:2;" onclick="submitReview()">Submit Review</button>
+    </div>
+  </div>
+</div>
 
 <div id="toast"></div>
 
@@ -851,7 +1003,7 @@ function doGet(e) {
       const headers = rows[0];
       const data = rows.slice(1)
         .map(r => { const o = {}; headers.forEach((h, i) => o[h] = r[i]); return o; })
-        .filter(r => !pid || String(r.productId) === String(pid));
+        .filter(r => !pid || String(r.product_id) === String(pid));
       result = { status: "ok", data };
     }
 
@@ -880,7 +1032,7 @@ function productHeaders() {
 }
 
 function reviewHeaders() {
-  return ["id","productId","productName","reviewerName","orderId","rating","reviewText","date"];
+  return ["id","product_id","product_name","reviewerName","orderID","rating","reviewText","date"];
 }
 </script>
 
@@ -916,23 +1068,16 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   // Restore sheet URLs
-  const su = localStorage.getItem(KEY_SHEET_URL);
-  const sheetsEl = document.getElementById('sheets-url');
-  if (su && sheetsEl) sheetsEl.value = su;
-  if (typeof updateImageUiForSheets === 'function') updateImageUiForSheets(!!su);
-  const ru = localStorage.getItem(KEY_REV_URL);
-  const revEl = document.getElementById('reviews-sheet-url');
-  if (ru && revEl) revEl.value = ru;
-
+  
   // Load products
   loadProducts();
 });
 
 // ═══════════════════════════════
-// PRODUCTS STORAGE
+// PRODUCTS Display 
 // ═══════════════════════════════
 
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyeB0CRc7_PxmWEJfIVrwwknHIV0oZ7bIj_RPygInbSeRPXKlV0F5bjqrSyUVkCLFWDoQ/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxOy8AvYfDTPM9J8X7o6jf6PcT9HlEYaMAZsVuZGwsh3iYBvkh3wYgvpWarVDLbjEuX8A/exec';
 
 function loadProducts() {
   const grid = document.getElementById('products-grid');
@@ -940,13 +1085,6 @@ function loadProducts() {
   const rv = localStorage.getItem(KEY_REVIEWS);
   if (rv) { try { reviews = JSON.parse(rv); } catch(e) { reviews = {}; } }
   syncFromSheets(SHEET_URL);
-}
-
-function saveProductsLocal() {
-  localStorage.setItem(KEY_PRODUCTS, JSON.stringify(products));
-}
-function saveReviewsLocal() {
-  localStorage.setItem(KEY_REVIEWS, JSON.stringify(reviews));
 }
 
 // ═══════════════════════════════
@@ -1009,8 +1147,9 @@ function renderProducts() {
 
     grid.innerHTML += `
     <div class="product-card" id="card-${p.id}">
-      <div class="product-thumb" style="background:${p.bg||'var(--surface2)'}">
+      <div class="product-thumb" style="background:${p.bg||'var(--surface2)'}" onclick="openProductDetail('${p.id}')" title="Tap to view details">
         ${thumbHtml}
+        <span class="thumb-zoom-hint">👁 Details</span>
       </div>
       <div class="product-body">
         <div class="product-name">${escHtml(p.name)}</div>
@@ -1021,15 +1160,6 @@ function renderProducts() {
           ${p.tag ? `<span class="product-tag">${escHtml(p.tag)}</span>` : ''}
           ${ratingBadge}
         </div>
-      </div>
-      <button class="btn-review-card" onclick="openReview('${p.id}','${escAttr(p.name)}')">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Write a Review
-      </button>
-      <div class="product-reviews">${reviewsHtml}</div>
-      <div class="product-admin-actions">
-        <button class="btn-edit-prod" onclick="editProduct('${p.id}')">✏ Edit</button>
-        <button class="btn-del-prod" onclick="deleteProduct('${p.id}')">🗑 Delete</button>
       </div>
     </div>`;
   });
@@ -1054,117 +1184,6 @@ function toDirectImgUrl(url) {
   return url;
 }
 
-// ═══════════════════════════════
-// ADMIN FORM — SAVE / EDIT / DELETE
-// ═══════════════════════════════
-function saveProduct() {
-  const name = document.getElementById('f-name').value.trim();
-  const type = document.getElementById('f-type').value;
-  const use  = document.getElementById('f-use').value;
-  const mat  = document.getElementById('f-material').value;
-  const dur  = document.getElementById('f-durability').value;
-  const sizes= document.getElementById('f-sizes').value.trim();
-  const price= document.getElementById('f-price').value.trim();
-  const tag  = document.getElementById('f-tag').value.trim();
-  const desc = document.getElementById('f-desc').value.trim();
-  const urlFieldVal = document.getElementById('f-img-url').value.trim();
-  const hasSheets = !!localStorage.getItem(KEY_SHEET_URL);
-
-  // If Sheets is connected and admin used file upload (base64), block and warn
-  if (hasSheets && currentImageData && currentImageData.startsWith('data:') && !urlFieldVal) {
-    toast('⚠ File uploads cannot sync to Google Sheets. Please upload your image to ImgBB.com and paste the direct URL instead.', 'error');
-    return;
-  }
-
-  // Prefer URL field over base64 (URL syncs to Sheets; base64 does not)
-  const imgUrl = urlFieldVal || currentImageData || '';
-
-  if (!name || !type || !use || !price) {
-    toast('Please fill in Name, Type, Use, and Price.', 'error');
-    return;
-  }
-
-  setSyncStatus('loading', 'Saving product…');
-
-  const finalImgUrl = imgUrl;
-
-  const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
-
-  if (currentEditId) {
-    // Update
-    const idx = products.findIndex(p => p.id === currentEditId);
-    if (idx >= 0) {
-      products[idx] = { ...products[idx], name, type, use, material:mat, durability:dur, sizes, price, tag, desc, imageUrl:finalImgUrl };
-      // saveProductsLocal();
-      syncProductToSheets(products[idx], 'updateProduct');
-    }
-    toast('Product updated!');
-  } else {
-    // Add new
-    const newProd = {
-      id: 'p' + Date.now(),
-      name, type, use, material:mat, durability:dur, sizes, price, tag, desc,
-      imageUrl: finalImgUrl,
-      //emoji: emojis[type] || '👔',
-      //bg: 'linear-gradient(135deg,#1a1e35,#2a2060)',
-      createdAt: new Date().toISOString()
-    };
-    products.push(newProd);
-    // saveProductsLocal();
-    syncProductToSheets(newProd, 'addProduct');
-    toast('Product added!');
-  }
-
-  renderProducts();
-  resetForm();
-}
-
-function editProduct(id) {
-  const p = products.find(x => x.id === id);
-  if (!p) return;
-
-  currentEditId = id;
-  document.getElementById('edit-product-id').value = id;
-  document.getElementById('f-name').value = p.name || '';
-  document.getElementById('f-type').value = p.type || '';
-  document.getElementById('f-use').value = p.use || '';
-  document.getElementById('f-material').value = p.material || '';
-  document.getElementById('f-durability').value = p.durability || '';
-  document.getElementById('f-sizes').value = p.sizes || '';
-  document.getElementById('f-price').value = p.price || '';
-  document.getElementById('f-tag').value = p.tag || '';
-  document.getElementById('f-desc').value = p.desc || '';
-  document.getElementById('f-img-url').value = p.imageUrl && !p.imageUrl.startsWith('data:') ? p.imageUrl : '';
-
-  if (p.imageUrl && p.imageUrl.startsWith('data:')) {
-    currentImageData = p.imageUrl;
-    showImagePreview(p.imageUrl);
-  } else {
-    currentImageData = null;
-    if (p.imageUrl) showImagePreview(p.imageUrl);
-  }
-
-  document.getElementById('admin-panel-title').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit Product: ${escHtml(p.name)}`;
-  document.getElementById('save-btn-text').textContent = 'Update Product';
-  document.getElementById('cancel-edit-btn').style.display = '';
-
-  document.getElementById('admin-panel').scrollIntoView({ behavior: 'smooth' });
-  toast('Editing: ' + p.name);
-}
-
-function deleteProduct(id) {
-  if (!confirm('Delete this product?')) return;
-  const sheetUrl = localStorage.getItem(KEY_SHEET_URL);
-  if (sheetUrl) {
-    // ✅ Use GET with URL params — no POST needed
-    const params = new URLSearchParams({ action: 'deleteProduct', id: id });
-    fetch(sheetUrl + '?' + params.toString(), { redirect: 'follow' }).catch(()=>{});
-  }
-  products = products.filter(p => p.id !== id);
-  saveProductsLocal();
-  renderProducts();
-  toast('Product deleted.', 'info');
-}
 
 function resetForm() {
   currentEditId = null;
@@ -1179,103 +1198,6 @@ function resetForm() {
   document.getElementById('save-btn-text').textContent = 'Save Product';
   document.getElementById('cancel-edit-btn').style.display = 'none';
 }
-
-// ═══════════════════════════════
-// IMAGE HANDLING
-// ═══════════════════════════════
-function handleFileSelect(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  if (file.size > 2 * 1024 * 1024) {
-    toast('Image too large. Max 2 MB. Use a smaller image or paste a URL instead.', 'error');
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = e => {
-    currentImageData = e.target.result;
-    showImagePreview(currentImageData);
-    document.getElementById('f-img-url').value = '';
-  };
-  reader.readAsDataURL(file);
-}
-
-function handleDrop(event) {
-  event.preventDefault();
-  document.getElementById('img-upload-area').classList.remove('dragover');
-  const file = event.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) {
-    const dt = new DataTransfer();
-    dt.items.add(file);
-    document.getElementById('f-img-file').files = dt.files;
-    handleFileSelect({ target: { files: [file] } });
-  }
-}
-
-function showImagePreview(src) {
-  document.getElementById('img-preview-el').src = src;
-  document.getElementById('img-upload-placeholder').style.display = 'none';
-  document.getElementById('img-upload-preview').style.display = 'block';
-}
-
-function removeImage(event) {
-  event.stopPropagation();
-  currentImageData = null;
-  document.getElementById('f-img-file').value = '';
-  document.getElementById('img-preview-el').src = '';
-  document.getElementById('img-upload-placeholder').style.display = '';h11111 
-  document.getElementById('img-upload-preview').style.display = 'none';
-}
-
-function previewFromUrl(url) {
-  if (url && url.startsWith('http')) {
-    currentImageData = null;
-    showImagePreview(toDirectImgUrl(url));
-  }
-}
-
-// ═══════════════════════════════
-// GOOGLE SHEETS SYNC
-// ═══════════════════════════════
-// Show/hide image upload warning depending on whether Sheets is connected
-function updateImageUiForSheets(hasSheets) {
-  const warning = document.getElementById('img-sheets-warning');
-  const recommended = document.getElementById('img-url-recommended');
-  const uploadWrap = document.getElementById('img-upload-area-wrap');
-  if (warning) warning.style.display = hasSheets ? 'block' : 'none';
-  if (recommended) recommended.style.display = hasSheets ? 'inline' : 'none';
-  if (uploadWrap) uploadWrap.style.opacity = hasSheets ? '0.4' : '1';
-}
-
-function saveSheetUrl(url) {
-  localStorage.setItem(KEY_SHEET_URL, url);
-  updateImageUiForSheets(!!url);
-  setSyncStatus('ok', 'Sheet URL saved. Products will sync on next load.');
-}
-function saveReviewSheetUrl(url) {
-  localStorage.setItem(KEY_REV_URL, url);
-}
-
-function syncProductToSheets(product, action) {
-  const url = localStorage.getItem(KEY_SHEET_URL);
-  if (!url) { setSyncStatus('ok', 'Saved locally. No Google Sheets URL set yet.'); return; }
-
-  setSyncStatus('loading', 'Syncing to Google Sheets…');
-
-  // ✅ Use GET with URL params — GAS does not support POST with application/json from browsers (CORS)
-  const params = new URLSearchParams({
-    action: action,
-    product: JSON.stringify(product)
-  });
-
-  fetch(url + '?' + params.toString(), { redirect: 'follow' })
-  .then(r => r.json())
-  .then(d => {
-    if (d.status === 'ok') setSyncStatus('ok', 'Synced to Google Sheets ✓');
-    else setSyncStatus('error', 'Sheets error: ' + (d.msg || 'unknown'));
-  })
-  .catch(() => setSyncStatus('error', 'Sheets unreachable. Saved locally.'));
-}
-
 function syncFromSheets(url) {
   const emojis = { 'Shirt':'👔', 'Kurta':'🧥', 'Trouser / Pant':'👖', 'Blazer':'🎩', 'School Uniform':'🎗️', 'Party Wear':'👕', 'Other':'✂️' };
 
@@ -1287,7 +1209,7 @@ function syncFromSheets(url) {
           // Support both "product_name" (sheet columns) and "name" (old format)
           const type = p.product_type || p.type || '';
           return {
-            id:         p.product_id   || p.id         || 'p' + Date.now(),
+            id:         String(p.product_id   || p.id         || 'p' + Date.now()),
             name:       String(p.product_name     || p.name     || '').trim(),
             type:       type,
             use:        p.product_use      || p.use      || '',
@@ -1304,6 +1226,33 @@ function syncFromSheets(url) {
           };
         });
         renderProducts();
+
+        // Also load reviews from Sheets
+        fetch(url + '?action=getReviews', { redirect: 'follow' })
+          .then(r => r.json())
+          .then(rd => {
+            if (rd.status === 'ok' && Array.isArray(rd.data)) {
+              reviews = {};
+              rd.data.forEach(r => {
+                // Support both column name formats
+                const pid = String(r.product_id || r.productId || '');
+                if (!pid) return;
+                if (!reviews[pid]) reviews[pid] = [];
+                reviews[pid].push({
+                  id:           r.id,
+                  productId:    pid,
+                  productName:  r.product_name || r.productName || '',
+                  reviewerName: r.reviewerName || '',
+                  orderId:      r.orderID      || r.orderId || '',
+                  rating:       r.rating,
+                  reviewText:   r.reviewText   || '',
+                  date:         r.date         || ''
+                });
+              });
+              renderProducts();
+            }
+          })
+          .catch(err => console.warn('Reviews fetch failed:', err));
       } else {
         document.getElementById('products-grid').innerHTML =
           `<div class="products-empty"><span>🧵</span>No products found in sheet.</div>`;
@@ -1316,37 +1265,111 @@ function syncFromSheets(url) {
     });
 }
 
-function testSheetConnection() {
-  //const url = document.getElementById('sheets-url').value.trim();
-  const url = 'https://script.google.com/macros/s/AKfycbyeB0CRc7_PxmWEJfIVrwwknHIV0oZ7bIj_RPygInbSeRPXKlV0F5bjqrSyUVkCLFWDoQ/exec';
-  if (!url) { toast('Paste the Web App URL first.', 'error'); return; }
-  const res = document.getElementById('sheet-test-result');
-  res.style.display = 'block';
-  res.style.color = 'var(--gold2)';
-  res.textContent = 'Testing connection…';
-  fetch(url + '?action=getProducts')
-    .then(r => r.json())
-    .then(d => {
-      if (d.status === 'ok') {
-        res.style.color = 'var(--mint)';
-        res.textContent = '✓ Connection successful! Found ' + (d.data||[]).length + ' products.';
-        saveSheetUrl(url);
-      } else {
-        res.style.color = 'var(--coral)';
-        res.textContent = '✗ Error: ' + (d.msg || 'check your script.');
-      }
-    })
-    .catch(e => {
-      res.style.color = 'var(--coral)';
-      res.textContent = '✗ Could not connect. Check CORS or deploy settings.';
-    });
-}
 
 function setSyncStatus(type, msg) {
   const dot = document.getElementById('admin-sync-dot');
   const m   = document.getElementById('admin-sync-msg');
   dot.className = 'sync-dot' + (type==='ok'?'':type==='error'?' error':' loading');
   m.textContent = msg;
+}
+
+
+// ═══════════════════════════════
+// PRODUCT DETAIL OVERLAY
+// ═══════════════════════════════
+function openProductDetail(productId) {
+  const p = products.find(x => String(x.id) === String(productId));
+  if (!p) return;
+
+  const revList = reviews[productId] || [];
+  const avgRating = revList.length
+    ? (revList.reduce((a,r) => a + Number(r.rating), 0) / revList.length).toFixed(1)
+    : null;
+
+  // Image
+  const imageWrap = document.getElementById('pd-image-wrap');
+  // keep close button
+  const closeBtn = imageWrap.querySelector('.pd-close-btn');
+  imageWrap.innerHTML = '';
+  imageWrap.appendChild(closeBtn);
+  if (p.imageUrl) {
+    const img = document.createElement('img');
+    img.src = toDirectImgUrl(p.imageUrl);
+    img.alt = p.name;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    img.onerror = function() { this.style.display='none'; ph.style.display='flex'; };
+    const ph = document.createElement('div');
+    ph.className = 'pd-image-placeholder';
+    ph.textContent = p.emoji || '👔';
+    ph.style.display = 'none';
+    imageWrap.style.background = p.bg || 'var(--surface2)';
+    imageWrap.appendChild(img);
+    imageWrap.appendChild(ph);
+  } else {
+    const ph = document.createElement('div');
+    ph.className = 'pd-image-placeholder';
+    ph.textContent = p.emoji || '👔';
+    imageWrap.style.background = p.bg || 'var(--surface2)';
+    imageWrap.appendChild(ph);
+  }
+
+  document.getElementById('pd-name').textContent = p.name;
+  document.getElementById('pd-price').textContent = '₹ ' + p.price;
+
+  // Tag
+  const tagEl = document.getElementById('pd-tag');
+  tagEl.innerHTML = p.tag ? `<span class="product-tag">${escHtml(p.tag)}</span>` : '';
+
+  // Rating
+  const ratingEl = document.getElementById('pd-rating');
+  ratingEl.innerHTML = avgRating
+    ? `<span style="font-size:12px;color:var(--gold2);font-family:'JetBrains Mono',monospace;">★ ${avgRating} (${revList.length} reviews)</span>`
+    : '';
+
+  document.getElementById('pd-desc').textContent = p.desc || '';
+
+  // Meta grid
+  const metaItems = [
+    p.material   ? { lbl: 'मटेरियल:',    val: p.material }   : null,
+    p.sizes      ? { lbl: 'साइज़:',       val: p.sizes }      : null,
+    p.use        ? { lbl: 'उपयोग:',         val: p.use }        : null,
+    p.durability ? { lbl: 'टिकाउ:',  val: p.durability } : null,
+    p.type       ? { lbl: 'प्रकार:',        val: p.type }       : null,
+  ].filter(Boolean);
+
+  const metaGrid = document.getElementById('pd-meta-grid');
+  metaGrid.innerHTML = metaItems.map(m => `
+    <div class="pd-meta-item">
+      <div class="pd-meta-lbl">${m.lbl}</div>
+      <div class="pd-meta-val">${escHtml(m.val)}</div>
+    </div>`).join('');
+
+  // Reviews list
+  const reviewsList = document.getElementById('pd-reviews-list');
+  reviewsList.innerHTML = revList.length
+    ? revList.slice().reverse().map(r => `
+        <div class="review-item">
+          <div class="review-meta">
+            <span class="review-name">${escHtml(r.reviewerName)}</span>
+            <span class="review-stars">${'★'.repeat(Number(r.rating))}${'☆'.repeat(5-Number(r.rating))}</span>
+            <span class="review-date">${r.date ? r.date.split('T')[0] : ''}</span>
+          </div>
+          <div class="review-text">${escHtml(r.reviewText)}</div>
+        </div>`).join('')
+    : `<div class="no-reviews">No reviews yet — be the first!</div>`;
+
+  // Wire up review button
+  const reviewBtn = document.getElementById('pd-review-btn');
+  reviewBtn.onclick = function() {
+    closeProductDetail();
+    openReview(productId, p.name);
+  };
+
+  document.getElementById('product-detail-overlay').classList.add('active');
+}
+
+function closeProductDetail() {
+  document.getElementById('product-detail-overlay').classList.remove('active');
 }
 
 // ═══════════════════════════════
@@ -1384,14 +1407,14 @@ function submitReview() {
   if (!currentRating) { toast('Please select a star rating.', 'error'); return; }
   if (!text) { toast('Please write a short review.', 'error'); return; }
 
-  const prod = products.find(p => p.id === currentReviewProductId);
+  const prod = products.find(p => String(p.id) === String(currentReviewProductId));
 
   const review = {
     id: 'r' + Date.now(),
-    productId: currentReviewProductId,
-    productName: prod ? prod.name : '',
+    product_id: currentReviewProductId,
+    product_name: prod ? prod.name : '',
     reviewerName: name,
-    orderId,
+    orderID: orderId,
     rating: currentRating,
     reviewText: text,
     date: new Date().toISOString()
@@ -1399,10 +1422,16 @@ function submitReview() {
 
   // Save locally
   if (!reviews[currentReviewProductId]) reviews[currentReviewProductId] = [];
-  reviews[currentReviewProductId].push(review);
-  saveReviewsLocal();
+  // Map to internal format for local display
+  reviews[currentReviewProductId].push({
+    ...review,
+    productId: review.product_id,
+    productName: review.product_name,
+    orderId: review.orderID
+  });
+  // saveReviewsLocal();
 
-    const revUrl = localStorage.getItem(KEY_REV_URL) || localStorage.getItem(KEY_SHEET_URL);
+  const revUrl = localStorage.getItem(KEY_REV_URL) || localStorage.getItem(KEY_SHEET_URL);
     if (revUrl) {
       const ss = document.getElementById('review-sync-status');
       const sd = document.getElementById('review-sync-dot');
@@ -1489,6 +1518,9 @@ function toast(msg, type) {
 // ═══════════════════════════════
 document.getElementById("admin-overlay").addEventListener("click", function(e) {
   if (e.target === this) closeLogin();
+});
+document.getElementById("product-detail-overlay").addEventListener("click", function(e) {
+  if (e.target === this) closeProductDetail();
 });
 document.getElementById("review-overlay").addEventListener("click", function(e) {
   if (e.target === this) closeReview();
